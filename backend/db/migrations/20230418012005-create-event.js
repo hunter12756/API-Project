@@ -38,7 +38,7 @@ module.exports = {
       },
       type: {
         allowNull:false,
-        type: Sequelize.ENUM('pending')
+        type: Sequelize.ENUM("Online", "In Person")
       },
       capacity: {
         allowNull:false,

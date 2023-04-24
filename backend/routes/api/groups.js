@@ -1,42 +1,11 @@
 // backend/routes/api/users.js
 const express = require('express');
 const { requireAuth } = require("../../utils/auth");
-
+const {Op} = require('sequelize');
 const { User,Group,Membership,GroupImage } = require('../../db/models');
 const router = express.Router();
 
-//get all groups
-router.get('/', async (req, res) => {
-    const groups = await Group.findAll({
-        attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city',
-            'state', 'createdAt', 'updatedAt']
-    });
 
-    for (let group of groups) {
-        let id = group.id;
-        const members = await Membership.count({
-            where: {
-                groupId: id
-            }
-        })
-        const prev = await GroupImage.findOne({
-            where: {
-                groupId: {
-                    [Op.eq]: id
-                },
-                preview: {
-                    [Op.eq]: true
-                }
-            }
-        });
-        group.dataValues.numMembers = members;
-        group.dataValues.previewImage = prev.url;
-
-    }
-
-    return res.json({ "Groups": groups })
-
-});
 //get by id
 router.get('/:groupId', async (req, res) => {
     const { groupId } = req.params;
@@ -51,28 +20,66 @@ router.get('/:groupId', async (req, res) => {
         {
             model: Venue,
             attributes: ['id', 'groupId', 'address',
-                'city', 'state', 'lat', 'lng']
+            'city', 'state', 'lat', 'lng']
         },
         {
             model: User,
-            as: "Organizer"
-        }],
-    })
+            as: "Organizer",
+            attributes: ['id','firstName','lastName']
+        }
+    ],
+    });
     if(!group) {
         res.status(404);
         return res.json({"message":"Group couldn't be found"})
     }
 
-    const members = await Membership.count({
+    const membersCount = await Membership.count({
         where: {
             groupId:groupId
         }
     })
 
-    group.dataValues.numMembers = members;
+    group.dataValues.numMembers = membersCount;
 
     return res.json(group)
 })
+
+//get all groups
+router.get('/', async (req, res) => {
+    const groups = await Group.findAll({
+        attributes: ['id', 'organizerId', 'name', 'about', 'type', 'private', 'city',
+            'state', 'createdAt', 'updatedAt']
+    });
+
+    for (let group of groups) {
+        let id = group.id;
+        const membersCount = await Membership.count({
+            where: {
+                groupId: id
+            }
+        })
+        const prev = await GroupImage.findOne({
+            where: {
+                groupId: {
+                    [Op.eq]: id
+                },
+                preview: {
+                    [Op.eq]: true
+                }
+            }
+        });
+        if(prev){
+            group.dataValues.previewImage = prev.url;
+
+        } else {
+            group.dataValues.previewImage = null;
+        }
+        group.dataValues.numMembers = membersCount;
+    }
+    return res.json({ "Groups": groups })
+});
+
 //request membership to the group
 router.post("/:groupId/membership", requireAuth, async (req, res) => {
     const { groupId } = req.params;
@@ -113,11 +120,6 @@ router.post("/:groupId/membership", requireAuth, async (req, res) => {
     return res.json({
         "memberId": newMembership.id,
         "status": "pending"
-    })
-})
-
-//change the status of a membership for a group specified by id
-router.put('/:groupId/membership', requireAuth, async (req, res) => {
-
+    });
 })
 module.exports = router;

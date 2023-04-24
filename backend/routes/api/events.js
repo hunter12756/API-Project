@@ -1,7 +1,11 @@
 //delete an event  by eventid
+const express = require('express');
+const { Event, Group, Venue, Attendance, EventImage, Membership, User } = require('../../db/models');
+const { Op } = require('sequelize');
 
-const { requireAuth } = require("../../utils/auth");
-const router = require("./groups");
+const { requireAuth } = require('../../utils/auth');
+
+const router = express.Router();
 
 //Get all Events
 router.get('/',async (req,res)=> {
@@ -52,3 +56,5 @@ router.delete('/:eventId',requireAuth,async (req,res)=> {
     await curEvent.destroy();
     res.json({"message":"Successfully deleted"});
 })
+
+module.exports = router;
