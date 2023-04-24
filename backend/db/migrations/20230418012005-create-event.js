@@ -17,15 +17,14 @@ module.exports = {
         allowNull:true,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Venue',
-          key: 'id'
+          model: 'Venues',
         }
       },
       groupId: {
         allowNull:false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Group',
+          model: 'Groups',
           key: 'id'
         }
       },
@@ -47,7 +46,7 @@ module.exports = {
       },
       price: {
         allowNull:false,
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL
       },
       startDate: {
         allowNull:false,
@@ -59,11 +58,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
     },options);
   },

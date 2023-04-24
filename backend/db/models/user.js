@@ -4,14 +4,20 @@ const { Model, Validator } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Group, { foreignKey: 'organizerId', onDelete:'CASCADE' });
-      User.hasMany(models.Membership, { foreignKey: 'userId', onDelete:'CASCADE' });
-      User.hasMany(models.Attendance, { foreignKey: 'userId', onDelete:'CASCADE' });
+      User.hasMany(models.Group, { foreignKey: 'organizerId' });
+      User.hasMany(models.Membership, { foreignKey: 'userId' });
+      User.hasMany(models.Attendance, { foreignKey: 'userId' });
     }
   };
 
   User.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull:false,
+        primaryKey:true,
+        autoIncrement:true
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,

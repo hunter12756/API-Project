@@ -5,13 +5,14 @@ const {Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Venue extends Model {
     static associate(models) {
-      Venue.hasMany(models.Event, { foreignKey: 'venueId',onDelete:'CASCADE' });
+      Venue.hasMany(models.Event, { foreignKey: 'venueId' });
       Venue.belongsTo(models.Group, { foreignKey: 'groupId' });
     }
   }
  Venue.init({
     id: {
       type: DataTypes.INTEGER,
+      allowNull:false,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -32,11 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     lat: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIAML,
       allowNull: false,
     },
     lng: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
   },{

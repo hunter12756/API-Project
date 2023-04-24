@@ -1,5 +1,5 @@
 "use strict";
-
+/** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
@@ -9,6 +9,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable('Venues', {
       id: {
+        allowNull:false,
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -17,8 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Group',
-          key: 'id'
+          model: 'Groups',
         }
       },
       address: {
@@ -34,20 +34,22 @@ module.exports = {
         allowNull: false,
       },
       lat: {
-        type: Sequelize.DOUBLE,
+        type: Sequelize.DECIMAL,
         allowNull: false,
       },
       lng: {
-        type: Sequelize.DOUBLE,
+        type: Sequelize.DECIMAL,
         allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
     },options);
   },

@@ -3,13 +3,19 @@ const {Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Event extends Model {
     static associate(models) {
-      Event.hasMany(models.EventImage, { foreignKey: 'eventId', onDelete:'CASCADE' });
-      Event.hasMany(models.Venue, { foreignKey: 'eventId', onDelete:'CASCADE'  });
-      Event.belongsTo(models.Venue, { foreignKey: 'venueId' , onDelete:'CASCADE' });
-      Event.belongsTo(models.Group, { foreignKey: 'groupId' , onDelete:'CASCADE' });
+      Event.hasMany(models.EventImage, { foreignKey: 'eventId', });
+      Event.hasMany(models.Venue, { foreignKey: 'eventId',   });
+      Event.belongsTo(models.Venue, { foreignKey: 'venueId' ,  });
+      Event.belongsTo(models.Group, { foreignKey: 'groupId' ,  });
     }
   }
   Event.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      primaryKey:true,
+      autoIncrement:true
+    },
     venueId: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -27,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     type: {
-      type: DataTypes.ENUM('pending'),
+      type: DataTypes.ENUM('Online','In Person'),
       allowNull: false
     },
     capacity: {
@@ -35,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
     startDate: {

@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
 
   Attendance.init(
     {
+      id:{
+        type: DataTypes.INTEGER,
+        allowNull:false,
+        primaryKey:true,
+        autoIncrement:true
+      },
       eventId: {
         type: DataTypes.INTEGER,
       },
@@ -19,20 +25,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       status: {
         type: DataTypes.ENUM('attending','waitlist','pending'),
-        allowNull: false,
-        validate: {
-
-        }
       },
     },
     {
       sequelize,
       modelName: "Attendance",
-      defaultScope: {
-        attributes: {
-          exclude: []
-        }
-      }
+
     }
   );
   return Attendance;

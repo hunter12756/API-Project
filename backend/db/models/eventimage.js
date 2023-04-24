@@ -9,21 +9,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   EventImage.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      primaryKey:true,
+      autoIncrement:true
+    },
     eventId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      onDelete:"CASCADE"
     },
     url: {
       allowNull: false,
       type: DataTypes.STRING,
-      validate: {
-        len: [1,60],
-      }
     },
     preview: {
       type: DataTypes.BOOLEAN,
-      validate: {
-
-      }
     },
 
   }, {

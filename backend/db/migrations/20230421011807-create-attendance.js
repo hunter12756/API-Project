@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
@@ -16,15 +16,13 @@ module.exports = {
       eventId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Event',
-          key: 'id'
+          model: 'Events',
         }
       },
       userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'User',
-          key: 'id'
+          model: 'Users',
         }
       },
       status: {

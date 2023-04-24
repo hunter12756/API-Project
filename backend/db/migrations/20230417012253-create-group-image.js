@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
@@ -16,8 +16,7 @@ module.exports = {
       groupId: {
         type: Sequelize.INTEGER,
         references: {
-          model:'Group',
-          key:'id'
+          model:'Groups',
         }
       },
       url: {

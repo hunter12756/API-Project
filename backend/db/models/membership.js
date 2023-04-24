@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Membership.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      primaryKey:true,
+      autoIncrement:true
+    },
     userId: {
       allowNull:false,
       type: DataTypes.INTEGER
@@ -20,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       allowNull:false,
-      type: DataTypes.ENUM('member', 'co-host','pending')
+      type: DataTypes.ENUM('co-host', 'member','pending')
     },
   }, {
     sequelize,

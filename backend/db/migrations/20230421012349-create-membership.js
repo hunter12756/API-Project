@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -16,27 +16,27 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'User',
-          key: 'id'
+          model: 'Users',
         }
       },
       groupId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Group',
-          key: 'id'
+          model: 'Groups',
         }
       },
       status: {
-        type: Sequelize.ENUM('pending')
+        type: Sequelize.ENUM('co-host','member','pending')
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
     },options);
   },
