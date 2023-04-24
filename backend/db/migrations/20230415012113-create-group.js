@@ -22,27 +22,27 @@ module.exports = {
         }
       },
       name: {
-        allowNull: false,
+
         type: Sequelize.STRING
       },
       about: {
-        allowNull: false,
+
         type: Sequelize.TEXT
       },
       type: {
-        allowNull: false,
+
         type: Sequelize.ENUM('Online', 'In person')
       },
       private: {
-        allowNull: false,
+
         type: Sequelize.BOOLEAN
       },
       city: {
-        allowNull: false,
+        allowNull:false,
         type: Sequelize.STRING
       },
       state: {
-        allowNull: false,
+        allowNull:false,
         type: Sequelize.STRING
       },
       createdAt: {

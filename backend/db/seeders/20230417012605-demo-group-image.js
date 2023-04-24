@@ -13,17 +13,17 @@ module.exports = {
       {
         groupId:1,
         url:"www.deez1.com",
-        previw:true
+        preview:true
       },
       {
         groupId:2,
         url:"www.deez2.com",
-        previw:true
+        preview:true
       },
       {
         groupId:3,
         url:"www.deez3.com",
-        previw:true
+        preview:true
       },
 
     ], {});
