@@ -271,6 +271,84 @@ router.get('/', async (req, res) => {
     }
     return res.json({ "Groups": groups })
 });
+//edit group by id
+router.put("/:groupId", requireAuth, async (req, res) => {
+    const { name, about, type, private, city, state } = req.body;
+    const {groupId} = req.params;
+
+    const group = await Group.findOne({
+        where: {
+            id: groupId
+        }
+    })
+    if(!group) {
+        res.status(404);
+        return res.json({"message": "Group couldn't be found"})
+    }
+
+    if (req.user.id !== group.organizerId) {
+        res.status(403);
+        return res.json({'message': 'Forbidden'})
+    }
+    const errors = {};
+    if (name.length > 60) errors.name = "Name must be 60 characters or less";
+    if (about.length < 50) errors.about = "About must be 50 characters or more";
+    if (type !== "Online" && type !== "In Person") errors.type = "Type must be 'Online' or 'In Person'";
+    if (private !== true && private !== false) errors.private = "Private must be a boolean";
+    if (!city) errors.city = "City is required";
+    if (!state) errors.state = "State is required";
+
+    if (Object.keys(errors).length) {
+        res.status(400);
+        return res.json({
+            "message": "Bad Request",
+            "errors": errors
+        });
+    }
+    group.update({
+        name: name,
+        about: about,
+        type: type,
+        private: private,
+        city: city,
+        state: state
+    })
+    return res.json(group);
+});
+//add new group
+router.post("/", requireAuth, async (req, res) => {
+    const { name, about, type, private, city, state } = req.body;
+    const organizer = req.user.id;
+
+    const errors = {};
+    if (name.length > 60) errors.name = "Name must be 60 characters or less";
+    if (about.length < 50) errors.about = "About must be 50 characters or more";
+    if (type !== "Online" && type !== "In Person") errors.type = "Type must be 'Online' or 'In Person'";
+    if (private !== true && private !== false) errors.private = "Private must be a boolean";
+    if (!city) errors.city = "City is required";
+    if (!state) errors.state = "State is required";
+
+    if (Object.keys(errors).length) {
+        res.status(400);
+        return res.json({
+            "message": "Bad Request",
+            "errors": errors
+        });
+    }
+
+    const newGroup = await Group.create({
+        organizerId: organizer,
+        name: name,
+        about: about,
+        type: type,
+        private: private,
+        city: city,
+        state: state
+    });
+
+    res.status(201);
+    return res.json(newGroup);
+});
 
 //request membership to the group
 router.post("/:groupId/membership", requireAuth, async (req, res) => {
@@ -314,7 +392,92 @@ router.post("/:groupId/membership", requireAuth, async (req, res) => {
         "status": "pending"
     });
 })
+//deletes
+router.delete("/:groupId/membership", requireAuth, async (req, res) => {
+    const { groupId } = req.params;
+    const { memberId } = req.body;
+    const groupData = await Group.findOne({
+        where: {
+            id: groupId
+        }
+    });
 
-//edit
+    if (!groupData) {
+        res.status(404);
+        return res.json({"message": "Resource not found"});
+    }
+
+    const memberData = await User.findOne({
+        where: {
+            id: memberId
+        }
+    });
+
+    if (!memberData) {
+        res.status(400);
+        return res.json({
+            "message": "Validation Error",
+            "errors": {
+              "memberId": "Resource not found"
+            }
+        });
+    }
+    if (groupData.organizerId !== req.user.id && memberId !== req.user.id) {
+        res.status(403);
+        return res.json({"message": "Access Denied"});
+    }
+
+    const membershipData = await Membership.findOne({
+        where: {
+            userId: memberId,
+            groupId: groupId
+        }
+    });
+
+    if (!membershipData) {
+        res.status(404);
+        return res.json({"message": "Resource not found"});
+    }
+
+    await Membership.destroy({
+        where: {
+            id: membershipData.id
+        }
+    });
+
+    return res.json({"message": "Resource deleted successfully"});
+});
+
+router.delete("/:groupId",requireAuth, async (req, res) => {
+    const { groupId } = req.params;
+    const selectedGroup = await Group.findOne({
+        where: {
+            id: groupId
+        }
+    });
+
+    if (!selectedGroup) {
+        res.status(404);
+        return res.json({"message": "Resource not found"});
+    }
+
+    if (selectedGroup.organizerId !== req.user.id) {
+        res.status(403);
+        return res.json({"message": "Access Denied"});
+    }
+
+    await Group.destroy({
+        where: {
+            id: groupId
+        }
+    });
+
+    return res.json({"message": "Resource deleted successfully"});
+});
+
+router.use((err, req, res, next) => {
+    return res.json(err.errors);
+});
+
 
 module.exports = router;
