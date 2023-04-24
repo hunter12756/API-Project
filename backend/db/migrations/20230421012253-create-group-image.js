@@ -1,8 +1,12 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('GroupImages', {
+   up: async(queryInterface, Sequelize) =>{
+    return queryInterface.createTable('GroupImages', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,7 +14,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       groupId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model:'Group',
+          key:'id'
+        }
       },
       url: {
         type: Sequelize.STRING
@@ -20,15 +28,18 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
-    });
+    },options);
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('GroupImages');
+  down: async (queryInterface, Sequelize) => {
+    options.tableName = "GroupImages";
+    return queryInterface.dropTable(options.tableName);
   }
 };

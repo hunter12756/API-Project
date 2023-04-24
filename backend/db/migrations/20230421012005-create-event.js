@@ -1,8 +1,12 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Events', {
+  up:async (queryInterface, Sequelize) =>{
+    return queryInterface.createTable('Events', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,30 +14,47 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       venueId: {
-        type: Sequelize.INTEGER
+        allowNull:true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Venue',
+          key: 'id'
+        }
       },
       groupId: {
-        type: Sequelize.INTEGER
+        allowNull:false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Group',
+          key: 'id'
+        }
       },
       name: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       description: {
+        allowNull:false,
         type: Sequelize.TEXT
       },
       type: {
-        type: Sequelize.ENUM
+        allowNull:false,
+        type: Sequelize.ENUM('pending')
       },
       capacity: {
+        allowNull:false,
         type: Sequelize.INTEGER
       },
       price: {
+        allowNull:false,
         type: Sequelize.INTEGER
       },
       startDate: {
+        allowNull:false,
         type: Sequelize.DATE
       },
       endDate: {
+        allowNull:false,
         type: Sequelize.DATE
       },
       createdAt: {
@@ -44,9 +65,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    },options);
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Events');
+  down: async (queryInterface, Sequelize) => {
+    options.tableName = 'Events';
+    return queryInterface.dropTable(options.tableName);
   }
 };

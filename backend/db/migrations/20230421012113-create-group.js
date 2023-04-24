@@ -1,8 +1,12 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Groups', {
+  up: async (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Groups', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,37 +14,53 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       organizerId: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       about: {
-        type: Sequelize.TEXT
+        allowNull: false,
+        type: Sequelize.STRING
       },
       type: {
-        type: Sequelize.ENUM
+        allowNull: false,
+        type: Sequelize.ENUM('Online', 'In person')
       },
       private: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       city: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       state: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
-    });
+    },options);
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Groups');
+  down: async (queryInterface, Sequelize) => {
+    options.tableName = 'Groups';
+    return queryInterface.dropTable(options.tableName);
   }
 };
