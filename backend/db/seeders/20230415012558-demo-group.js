@@ -14,7 +14,7 @@ module.exports = {
         organizerId: 1,
         name: "Lovers of dance",
         about: "We are the people who really love to dance here.",
-        type: "In Person",
+        type: "In person",
         private: false,
         city: "New York City",
         state: "New York"
@@ -23,7 +23,7 @@ module.exports = {
         organizerId: 2,
         name: "Animal fans",
         about: "We love animals here",
-        type: "In Person",
+        type: "In person",
         private: false,
         city: "Los Angeles",
         state: "California"
