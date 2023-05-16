@@ -18,8 +18,8 @@ module.exports = {
         type: "In Person",
         capacity: 20,
         price: 20,
-        startDate: new Date("2023-05-31"),
-        endDate: new Date("2023-05-31")
+        startDate: new Date("2021-10-31"),
+        endDate: new Date("2023-01-31")
       },
       {
         venueId: 2,
@@ -35,9 +35,9 @@ module.exports = {
       {
         venueId: 3,
         groupId: 3,
-        name: "Women in business panel",
-        description: "Come hear a panel of woman CEOs speak about the future of business.",
-        type: "Online",
+        name: "Skate and stuff",
+        description: "Come skate board and show off tricks",
+        type: "In person",
         capacity: 100,
         price: 5,
         startDate: new Date("2023-07-31"),
