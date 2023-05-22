@@ -49,7 +49,7 @@ router.get('/:groupId/members', async (req, res) => {
     }
 
     const noCo = users.filter(cur => {
-        return cur.Membership.status !== 'pending'
+        return cur.Membership && cur.Membership.status !== 'pending';
     })
 
     if (!cohost && (group.organizerId !== req.user.id)) {
