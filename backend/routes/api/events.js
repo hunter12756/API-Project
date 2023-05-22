@@ -186,33 +186,34 @@ router.get('/:eventId', async (req, res) => {
             id: eventId
         },
         attributes: ["id", "groupId", "venueId", "name", "description", "type", "capacity", "price", "startDate", "endDate"],
-        include: [{
-            model: Group,
-            attributes: ["id", "name", "private", "city", "state"]
-        },
-        {
-            model: Venue,
-            attributes: ["id", "address", "city", "state", "lat", "lng"]
-        },
-        {
-            model: EventImage,
-            attributes: ["id", "url", "preview"]
-        }]
+
     })
 
     if (!event) {
         res.status(404);
         res.json({ "message": "Event couldn't be found" })
     }
-
+    const payload = event.toJSON();
     const attenCount = await Attendance.count({
         where: {
             eventId: eventId
         }
     })
+    payload.numAttending= attenCount
+    payload.Group = await Group.findByPk(payload.groupId, {
+        attributes: ['id', 'name', 'private', 'city', 'state']
+    });
+    payload.Venue = await Venue.findByPk(payload.venueId, {
+        attributes: ['id', 'address', 'city', 'state', 'lat', 'lng']
+    });
+    payload.EventImages = await EventImage.findAll({
+        where: {
+            eventId: payload.id
+        },
+        attributes: ['id', 'url', 'preview']
+    });
 
-    event.dataValues.numAttending = attenCount;
-    return res.json(event)
+    return res.json(payload)
 })
 //edit event
 router.put('/:eventId', requireAuth, async (req, res) => {
