@@ -223,10 +223,8 @@ router.put('/:eventId', requireAuth, async (req, res) => {
         where: {
             id: eventId
         },
-        include: {
-            model: Group,
-            attributes: ["id", "organizerId"]
-        }
+        attributes: ['id','groupId','venueId','name','capacity','price','description','startDate','endDate'
+        ]
     })
 
     if (!event) {
@@ -276,18 +274,10 @@ router.put('/:eventId', requireAuth, async (req, res) => {
         startDate,
         endDate
     })
+const payload = event.toJSON();
 
     res.json({
-        "id": event.id,
-        "groupId": event.Group.id,
-        "venueId": event.venueId,
-        "name": event.name,
-        "type": event.type,
-        "capacity": event.capacity,
-        "price": event.price,
-        "description": event.description,
-        "startDate": event.startDate,
-        "endDate": event.endDate
+       payload
     })
 })
 

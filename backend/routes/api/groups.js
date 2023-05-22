@@ -228,14 +228,18 @@ router.get('/:groupId', async (req, res) => {
         res.status(404);
         return res.json({ "message": "Group couldn't be found" });
     };
+    const payload = group.toJSON();
     const membersCount = await Membership.count({
         where: {
             groupId: groupId
         }
     });
-    group.dataValues.numMembers = membersCount;
+    payload.numMembers = membersCount;
+    payload.Organizer = await User.findByPk(payload.organizerId, {
+        attributes: ['id', 'firstName', 'lastName']
+    })
 
-    return res.json(group)
+    res.json(payload);
 })
 
 //get all groups
