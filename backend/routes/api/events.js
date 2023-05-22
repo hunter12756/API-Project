@@ -523,7 +523,7 @@ router.get('/', async (req, res) => {
     for (let i = 0; i < events.length; i++) {
         const curEvent = events[i].toJSON();
 
-        curEvent.numAttending = await Attendee.count({
+        curEvent.numAttending = await Attendance.count({
             where: {
                 eventId: curEvent.id
             }
