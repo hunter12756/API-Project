@@ -1,10 +1,8 @@
 //delete an event  by eventid
 const express = require('express');
-const { Event, Group, Venue, Attendance, EventImage, Membership, User } = require('../../db/models');
-const { Op } = require('sequelize');
-
 const { requireAuth } = require('../../utils/auth');
-
+const { Op } = require('sequelize');
+const { Event, Group, Venue, Attendance, EventImage, Membership, User } = require('../../db/models');
 const router = express.Router();
 router.get("/:eventId/attendees", async (req, res) => {
     const { eventId } = req.params;
@@ -523,32 +521,32 @@ router.get('/', async (req, res) => {
 
     //attending appending
     for (let i = 0; i < events.length; i++) {
-        const currEvent = events[i].toJSON();
+        const curEvent = events[i].toJSON();
 
-        currEvent.numAttending = await Attendee.count({
+        curEvent.numAttending = await Attendee.count({
             where: {
-                eventId: currEvent.id
+                eventId: curEvent.id
             }
         });
 
         const previewImage = await EventImage.findOne({
             where: {
-                eventId: currEvent.id,
+                eventId: curEvent.id,
                 preview: true
             }
         });
 
-        currEvent.previewImage = previewImage?.url ?? 'No preview image for event'
+        curEvent.previewImage = previewImage?.url ?? 'No preview image for event'
 
-        currEvent.Group = await Group.findByPk(currEvent.groupId, {
+        curEvent.Group = await Group.findByPk(curEvent.groupId, {
             attributes: ['id', 'name', 'city', 'state']
         });
 
-        currEvent.venue = await Venue.findByPk(currEvent.venueId, {
+        curEvent.venue = await Venue.findByPk(curEvent.venueId, {
             attributes: ['id', 'city', 'state']
         });
 
-        events[i] = currEvent;
+        events[i] = curEvent;
     }
 
     res.json({ Events: events });

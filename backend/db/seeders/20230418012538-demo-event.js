@@ -12,8 +12,8 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         venueId: 1,
-        groupId: 1,
-        name: "Picnick at the park",
+        groupId: 2,
+        name: "Picnic at the park",
         description: "Join your fellow New Yorkers for a sunny day in Central Park!",
         type: "In Person",
         capacity: 20,
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         venueId: 2,
-        groupId: 2,
+        groupId: 1,
         name: "Disco at the zoo",
         description: "Get down with the penguins and the tigers.",
         type: "In Person",
