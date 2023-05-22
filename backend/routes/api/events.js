@@ -484,6 +484,8 @@ router.get('/', async (req, res) => {
     const err = new Error('Bad Request');
     err.errors = {};
     let bool = false;
+
+    //errors handling
     if (page < 1) {
         err.errors.page = "Page must be greater than or equal to 1";
         bool = true;
