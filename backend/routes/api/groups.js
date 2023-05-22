@@ -2,7 +2,7 @@
 const express = require('express');
 const { requireAuth } = require("../../utils/auth");
 const { Op } = require('sequelize');
-const { User, Group, Membership, GroupImage } = require('../../db/models');
+const { User, Group, Membership, GroupImage, Venue , Event,Attendance,EventImage} = require('../../db/models');
 const router = express.Router();
 //get all members of a group specified byu its id
 router.get('/:groupId/members', async (req, res) => {
@@ -208,7 +208,8 @@ router.get('/:groupId', async (req, res) => {
         where: {
             id: groupId
         },
-        include: [{
+        include: [
+        {
             model: GroupImage,
             attributes: ['id', 'url', 'preview']
         },
@@ -217,16 +218,12 @@ router.get('/:groupId', async (req, res) => {
             attributes: ['id', 'groupId', 'address',
                 'city', 'state', 'lat', 'lng']
         },
-        {
-            model: User,
-            as: "Organizer",
-            attributes: ['id', 'firstName', 'lastName']
-        }
+
         ],
     });
     if (!group) {
         res.status(404);
-        return res.json({ "message": "Group couldn't be found" });
+        res.json({ "message": "Group couldn't be found" });
     };
     const payload = group.toJSON();
     const membersCount = await Membership.count({
