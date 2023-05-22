@@ -109,22 +109,13 @@ router.get('/:groupId/events', async (req, res) => {
     const events = await Event.findAll({
         attributes: ["id", "groupId", "venueId",
             "name", "type", "startDate", "endDate"],
-        include: [
-            {
-                model: Group,
-                attributes: ['id', 'name', 'city', 'state']
-            },
-            {
-                model: Venue,
-                attributes: ['id', 'city', 'state']
-            },
-        ],
         where: {
             groupId:groupId
         }
     });
 
-    for(cur of events) {
+    for(let i = 0; i<events.length;i++) {
+        const cur = events[i].toJSON();
         const attenCount = await Attendance.count({
             where: {
                 eventId: cur.id
@@ -136,12 +127,19 @@ router.get('/:groupId/events', async (req, res) => {
                 preview:true
             }
         });
-        cur.dataValues.numAttending =attenCount;
+        cur.numAttending =attenCount;
         if(img) {
-            cur.dataValues.previewImage = img.url;
+            cur.previewImage = img.url;
         } else {
-            cur.dataValues.previewImage = null;
+            cur.previewImage = null;
         }
+        cur.Group = await Group.findByPk(currEvent.groupId, {
+            attributes: ['id', 'name', 'city', 'state']
+        });
+        cur.venue = await Venue.findByPk(currEvent.venueId, {
+            attributes: ['id', 'city', 'state']
+        });
+        events[i] = cur;
 
     };
 
