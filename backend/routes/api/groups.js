@@ -43,11 +43,12 @@ router.get('/:groupId/members', async (req, res) => {
             users[i] = users[i].toJSON();
             users[i].Membership = { status }
         } else {
-            users[i] = undefined
+            users.splice(i, 1); // Remove element at index i
+        i--;
         }
     }
 
-    const noCo = res.filter(cur => {
+    const noCo = users.filter(cur => {
         return cur.Membership.status !== 'pending'
     })
 
