@@ -26,21 +26,24 @@ router.get('/:groupId/members', async (req, res) => {
         }
     });
 
-    const members = await Membership.findAll({
-        where: {
-            groupId: groupId
-        },
-        include: {
-            model: User
-        }
-    });
 
-    const result = {
-        id: members.User.id,
-        firstName: members.User.firstName,
-        lastName: members.User.lastName,
-        Membership: {
-            status: members.status
+    const users = await User.findAll({
+        attributes: ['id', 'firstName', 'lastName']
+    });
+    for(let i = 0; i < users.length; i++) {
+        const member = await Membership.findOne({
+            where: {
+                groupId: group.id,
+                userId: users[i].id
+            }
+        });
+
+        const status =  member?.toJSON().status
+        if(status) {
+            users[i] = users[i].toJSON();
+            users[i].Membership = { status }
+        } else {
+            users[i] = undefined
         }
     }
 
@@ -51,35 +54,14 @@ router.get('/:groupId/members', async (req, res) => {
     if (!cohost && (group.organizerId !== req.user.id)) {
         return res.json({ "Members": noCo })
     }
-    return res.json({ "Members": result })
+    let payload = users.filter(user => user)
+    return res.json({ "Members": payload })
 
 })
 
 //venues by groupId
 router.get('/:groupId/venues', requireAuth, async (req, res) => {
     const { groupId } = req.params;
-
-    const group = await Group.findOne({
-        where: {
-            id: groupId
-        }
-    });
-    if (!group) {
-        res.status(404)
-        return res.json({ "message": "Group couldn't be found" });
-    }
-    //if cohost
-    const cohost = await Membership.findAll({
-        where: {
-            userId: req.user.id,
-            groupId: groupId,
-            status: 'co-host'
-        }
-    });
-    if (!cohost && (group.organizerId !== req.user.id)) {
-        res.status(403);
-        return res.json({ "message": "forbidden" })
-    }
 
     const venues = await Venue.findAll({
         where: {
@@ -170,8 +152,9 @@ router.get('/current', requireAuth, async (req, res) => {
             groups.push(mem.Group)
         }
     }
-    for (let group of groups) {
-        let id = group.id;
+    for (let i = 0; i<groups.length;i++) {
+        groups = groups.toJSON();
+        let id = groups[i].id;
         const membersCount = await Membership.count({
             where: {
                 groupId: id
@@ -188,12 +171,12 @@ router.get('/current', requireAuth, async (req, res) => {
             }
         });
         if (prev) {
-            group.dataValues.previewImage = prev.url;
+            groups[i].previewImage = prev.url;
 
         } else {
-            group.dataValues.previewImage = null;
+            groups[i].previewImage = null;
         }
-        group.dataValues.numMembers = membersCount;
+        groups[i].numMembers = membersCount;
     }
     return res.json({ "Groups": groups })
 })
