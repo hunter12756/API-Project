@@ -53,9 +53,9 @@ router.get('/:groupId/members', async (req, res) => {
     })
 
     if (!cohost && (group.organizerId !== req.user.id)) {
-        return res.json({ "Members": noCo })
+        payload = payload.filter(user=> user.Membership.status !== 'pending')
     }
-    let payload = users.filter(user => user)
+    let payload = users.filter(user=> user)
     return res.json({ "Members": payload })
 
 })
