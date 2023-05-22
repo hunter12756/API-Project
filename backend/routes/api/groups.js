@@ -107,8 +107,6 @@ router.get('/:groupId/events', async (req, res) => {
     }
 
     const events = await Event.findAll({
-        attributes: ["id", "groupId", "venueId",
-            "name", "type", "startDate", "endDate"],
         where: {
             groupId:groupId
         }
@@ -116,20 +114,20 @@ router.get('/:groupId/events', async (req, res) => {
 
     for(let i = 0; i<events.length;i++) {
         const cur = events[i].toJSON();
-        const attenCount = await Attendance.count({
+        cur.numAttending = await Attendance.count({
             where: {
                 eventId: cur.id
             }
         });
-        const img = await EventImage.findOne({
+        const previewImage = await EventImage.findOne({
             where: {
                 eventId: cur.id,
                 preview:true
             }
         });
-        cur.numAttending =attenCount;
-        if(img) {
-            cur.previewImage = img.url;
+
+        if(previewImage) {
+            cur.previewImage = previewImage.url;
         } else {
             cur.previewImage = null;
         }
@@ -143,7 +141,7 @@ router.get('/:groupId/events', async (req, res) => {
 
     };
 
-    return res.json({"Events":events})
+    res.json({"Events":events})
 })
 //current userId get group
 //this works because there is an association where the userId is the same as the
