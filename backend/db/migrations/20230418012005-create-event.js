@@ -18,6 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'Venues',
+
         }
       },
       groupId: {
@@ -25,7 +26,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'Groups',
-          key: 'id'
         }
       },
       name: {
@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-        allowNull:false,
+
         type: Sequelize.TEXT
       },
       type: {
@@ -41,12 +41,12 @@ module.exports = {
         type: Sequelize.ENUM("Online", "In Person")
       },
       capacity: {
-        allowNull:false,
+
         type: Sequelize.INTEGER
       },
       price: {
-        allowNull:false,
-        type: Sequelize.DECIMAL
+
+        type: Sequelize.DECIMAL(6,2)
       },
       startDate: {
         allowNull:false,
