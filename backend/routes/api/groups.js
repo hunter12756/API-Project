@@ -131,10 +131,10 @@ router.get('/:groupId/events', async (req, res) => {
         } else {
             cur.previewImage = null;
         }
-        cur.Group = await Group.findByPk(currEvent.groupId, {
+        cur.Group = await Group.findByPk(cur.groupId, {
             attributes: ['id', 'name', 'city', 'state']
         });
-        cur.venue = await Venue.findByPk(currEvent.venueId, {
+        cur.Venue = await Venue.findByPk(cur.venueId, {
             attributes: ['id', 'city', 'state']
         });
         events[i] = cur;
