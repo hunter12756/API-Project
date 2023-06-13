@@ -43,14 +43,9 @@ router.get('/:groupId/members', async (req, res) => {
             users[i] = users[i].toJSON();
             users[i].Membership = { status }
         } else {
-            users.splice(i, 1); // Remove element at index i
-        i--;
+            users[i] = undefined;
         }
     }
-
-    const noCo = users.filter(cur => {
-        return cur.Membership && cur.Membership.status !== 'pending';
-    })
 
     if (!cohost && (group.organizerId !== req.user.id)) {
         payload = payload.filter(user=> user.Membership.status !== 'pending')
