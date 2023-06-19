@@ -1,9 +1,10 @@
-//delete an event  by eventid
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
 const { Op } = require('sequelize');
 const { Event, Group, Venue, Attendance, EventImage, Membership, User } = require('../../db/models');
 const router = express.Router();
+
+
 router.get("/:eventId/attendees", async (req, res) => {
     const { eventId } = req.params;
 
@@ -67,6 +68,7 @@ router.get("/:eventId/attendees", async (req, res) => {
 });
 
 //create new attendance
+//broken bc membership broken i think
 router.post("/:eventId/attendance", requireAuth, async (req, res) => {
     const { eventId } = req.params;
     const event = await Event.findOne({
@@ -131,6 +133,7 @@ router.post("/:eventId/attendance", requireAuth, async (req, res) => {
 });
 
 //create newimage
+//broken
 router.post('/:eventId/images', requireAuth, async (req, res) => {
     const { eventId } = req.params;
     const { url, preview } = req.body;
@@ -216,6 +219,7 @@ router.get('/:eventId', async (req, res) => {
     return res.json(payload)
 })
 //edit event
+//broken
 router.put('/:eventId', requireAuth, async (req, res) => {
     const { eventId } = req.params;
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body;
@@ -406,6 +410,7 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res) => {
     return res.json({ "message": "Successfully deleted attendance from event" })
 })
 //delete for event by eventId
+//BROKEN
 router.delete("/:eventId", requireAuth, async (req, res) => {
     const { eventId } = req.params;
     const selectedEvent = await Event.findOne({
@@ -444,10 +449,13 @@ router.delete("/:eventId", requireAuth, async (req, res) => {
     return res.json({ "result": "success", "message": "Event deleted successfully" });
 });
 
-
+//working
+//get rid of createdAt and updatedAt
 router.get('/', async (req, res) => {
     const where = {};
     const { name, type, startDate } = req.query;
+
+    //query fileters
     if (name) where.name = {
         [Op.like]: `%${name}%`
     };
@@ -460,13 +468,17 @@ router.get('/', async (req, res) => {
         };
     }
 
+    //pagination not working correctly
     const pagination = {};
     let { page, size } = req.query;
 
-    page = page ?? 1;
+    if (!page) page = 1;
+    if (!size) size = 20;
+    page = parseInt(page);
+    size = parseInt(size);
+
     if (page > 10) page = 10;
 
-    size = size ?? 20;
     if (size > 20) size = 20;
     if (size < 1) size = 1;
 
