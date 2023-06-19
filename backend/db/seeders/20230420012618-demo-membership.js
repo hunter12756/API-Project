@@ -1,11 +1,9 @@
 'use strict';
-
-
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-
+const {Membership} = require('../models')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = 'Memberships';
@@ -22,7 +20,7 @@ module.exports = {
       },
       {
         userId:3,
-        groupId:2,
+        groupId:3,
         status:"pending"
       },
 
