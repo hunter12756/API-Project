@@ -12,7 +12,7 @@ module.exports = {
     options.tableName = 'Venues';
     return queryInterface.bulkInsert(options, [
       {
-        groupId: 2,
+        groupId: 1,
         address: '123 Disney Lane',
         city: 'New York',
         state: 'NY',
@@ -20,7 +20,7 @@ module.exports = {
         lng:18.23
       },
       {
-        groupId: 1,
+        groupId: 2,
         address: '124 Disney Road',
         city: 'Orlando',
         state: 'FL',

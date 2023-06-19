@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Membership extends Model {
     static associate(models) {
       Membership.belongsTo(models.User, { foreignKey: 'userId' });
-      Membership.belongsTo(models.Group, { foreignKey: 'grouprId' });
+      Membership.belongsTo(models.Group, { foreignKey: 'groupId' });
     }
   }
   Membership.init({

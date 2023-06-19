@@ -6,47 +6,35 @@ const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 
 router.delete("/:imageId", requireAuth, async (req, res) => {
-    const { imageId } = req.params;
-    const image = await EventImage.findOne({
-        where: {
-            id: imageId
-        },
-        include: {
-            model: Event
-        }
-    })
+    let imageId = req.params.id;
+    const {user} = req;
+
+    const image = await EventImage.findByPk(imageId);
 
     if (!image) {
         res.status(404);
         return res.json({"message": "Event image couldn't be found"})
     }
 
-
-
-    const group = await Group.findOne({
-        where: {
-            id: image.Event.groupId
-        }
+    const event = await Event.findByPk(image.eventId,{
+        include:[{model:Group}]
     })
+    const group = event.Group;
 
-    const memberships = await Membership.findAll({
+    const membership = await Membership.findOne({
+        attributes:['status'],
         where: {
             groupId: group.id,
-            userId: req.user.id,
-            status: "co-host"
+            userId: user.id,
         }
     })
 
-    if (group.organizerId !== req.user.id && memberships.length === 0) {
+    if (group.organizerId !== user.id || membership?.status !== 'co-host') {
         res.status(403);
         return res.json({"message": "Forbidden"})
     }
 
-    await EventImage.destroy({
-        where: {
-            id: imageId
-        }
-    })
+    await image.destroy()
 
     return res.json({"message": "Successfully deleted"})
 
