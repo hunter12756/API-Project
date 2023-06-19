@@ -17,9 +17,6 @@ module.exports = {
       groupId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'Groups',
-        }
       },
       address: {
         type: Sequelize.STRING,
@@ -39,7 +36,7 @@ module.exports = {
       },
       lng: {
         type: Sequelize.DECIMAL,
-        
+
       },
       createdAt: {
         type: Sequelize.DATE,

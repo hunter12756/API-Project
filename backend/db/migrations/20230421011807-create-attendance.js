@@ -15,15 +15,11 @@ module.exports = {
       },
       eventId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Events',
-        }
+        allowNull:false
       },
       userId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-        }
+        allowNull:false
       },
       status: {
         type: Sequelize.ENUM('attending','waitlist','pending')
