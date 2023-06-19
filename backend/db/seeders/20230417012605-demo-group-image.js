@@ -12,17 +12,17 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId:1,
-        url:"www.deez1.com",
+        url:"https://static.designboom.com",
         preview:true
       },
       {
         groupId:2,
-        url:"www.deez2.com",
+        url:"https://secure.meetupstatic.com/photos",
         preview:true
       },
       {
         groupId:3,
-        url:"www.deez3.com",
+        url:"https://zoaroutdoor.com/wp-content/uploads",
         preview:true
       },
 
