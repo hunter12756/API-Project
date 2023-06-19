@@ -15,7 +15,7 @@ module.exports = {
       },
       groupId: {
         type: Sequelize.INTEGER,
-        
+
       },
       url: {
         type: Sequelize.STRING
