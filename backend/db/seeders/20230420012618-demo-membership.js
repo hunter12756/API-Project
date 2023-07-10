@@ -3,7 +3,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-const {Membership} = require('../models')
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = 'Memberships';
@@ -11,7 +11,7 @@ module.exports = {
       {
         userId:1,
         groupId:1,
-        status:'co-host'
+        status:"co-host"
       },
       {
         userId:2,
