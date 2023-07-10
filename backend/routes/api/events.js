@@ -61,9 +61,6 @@ router.get("/:eventId/attendees", async (req, res) => {
         }
     });
 
-    // Uncomment the following line to enable logging
-    // console.log("event", event);
-
     if (!event) {
         res.status(404);
         return res.json({ "message": "Event not found" });
@@ -77,9 +74,6 @@ router.get("/:eventId/attendees", async (req, res) => {
             model: User
         }
     });
-
-    // Uncomment the following line to enable logging
-    // console.log("attendees", attendees);
 
     const userMemb = await Membership.findOne({
         where: {
@@ -112,7 +106,7 @@ router.get("/:eventId/attendees", async (req, res) => {
 });
 
 //create new attendance
-//broken bc membership broken i think
+
 router.post("/:eventId/attendance", requireAuth, async (req, res) => {
     const { eventId } = req.params;
     const event = await Event.findOne({
@@ -177,7 +171,7 @@ router.post("/:eventId/attendance", requireAuth, async (req, res) => {
 });
 
 //create newimage
-//broken
+
 router.post('/:eventId/images', requireAuth, async (req, res) => {
     const { eventId } = req.params;
     const { url, preview } = req.body;
