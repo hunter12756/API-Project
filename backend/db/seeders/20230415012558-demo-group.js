@@ -20,7 +20,7 @@ module.exports = {
         state: "New York"
       },
       {
-        organizerId: 1,
+        organizerId: 2,
         name: "Animal fans",
         about: "We love animals here",
         type: "In person",
@@ -43,8 +43,6 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Groups';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options.tableName, {
-      id: { [Op.eq]: [1, 2, 3] }
-    }, {});
+    return queryInterface.bulkDelete(options)
   }
 };
