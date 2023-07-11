@@ -20,7 +20,7 @@ module.exports = {
         state: "New York"
       },
       {
-        organizerId: 2,
+        organizerId: 1,
         name: "Animal fans",
         about: "We love animals here",
         type: "In person",

@@ -6,7 +6,7 @@ const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 
 router.delete("/:imageId", requireAuth, async (req, res) => {
-    let imageId = req.params.id;
+    let imageId = req.params.imageId;
     const {user} = req;
 
     const image = await EventImage.findByPk(imageId);

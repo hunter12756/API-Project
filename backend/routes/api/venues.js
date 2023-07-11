@@ -36,7 +36,8 @@ router.put("/:venueId", requireAuth,validateVenueSignup, async (req, res, next) 
 
         const venue = await Venue.findByPk(req.params.venueId)
         if(!venue){
-            return res.json("No venue")
+            res.status(404)
+            return res.json("Venue could not be found")
         }
         console.log(group[0].toJSON())
         //this is broken
@@ -78,7 +79,7 @@ router.put("/:venueId", requireAuth,validateVenueSignup, async (req, res, next) 
             await venue.save();
 
             res.json(venue);
-            
+
         } else {
             //res.status(403);
             return res.json(`Current Group Organizer ID:${group[0].organizerId} UserID: ${user.id} Venue GroupId: ${venue.groupId} Current Group ID: ${group[0].id} Member Status: ${member.status} Member Group ID: ${member.groupId}`)

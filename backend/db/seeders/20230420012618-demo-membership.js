@@ -10,13 +10,18 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         userId:1,
+        groupId:2,
+        status:"co-host"
+      },
+      {
+        userId:1,
         groupId:1,
         status:"co-host"
       },
       {
         userId:2,
         groupId:2,
-        status:"member"
+        status:"pending"
       },
       {
         userId:3,
