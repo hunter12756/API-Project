@@ -29,7 +29,6 @@ router.put("/:venueId", requireAuth,validateVenueSignup, async (req, res, next) 
         //this is broken
         const group = await Group.findAll({
             where: {
-                //the user id is giving the incorrect group
                 organizerId: user.id
             }
         });
@@ -43,10 +42,10 @@ router.put("/:venueId", requireAuth,validateVenueSignup, async (req, res, next) 
         //this is broken
         const member = await Membership.findByPk(user.id)
         if(!member){
-            return res.json("No member")
+            return res.json("Member couldn't be found")
         }
         //this if statement is not hitting correctly
-        if (group[0].organizerId === user.id &&
+        if (group[0].organizerId === user.id ||
             venue.groupId === group[0].id ||
             (member.status === 'co-host' && member.groupId === user.id)) {
             const { address, city, state, lat, lng } = req.body;
@@ -77,13 +76,14 @@ router.put("/:venueId", requireAuth,validateVenueSignup, async (req, res, next) 
             }
 
             await venue.save();
-
-            res.json(venue);
+            let venueObj = venue.toJSON();
+            delete venueObj.updatedAt;
+            res.json(venueObj);
 
         } else {
-            //res.status(403);
-            return res.json(`Current Group Organizer ID:${group[0].organizerId} UserID: ${user.id} Venue GroupId: ${venue.groupId} Current Group ID: ${group[0].id} Member Status: ${member.status} Member Group ID: ${member.groupId}`)
-            //return res.json({ message: "Forbidden" })
+            res.status(403);
+            // return res.json(`Current Group Organizer ID:${group[0].organizerId} UserID: ${user.id} Venue GroupId: ${venue.groupId} Current Group ID: ${group[0].id} Member Status: ${member.status} Member Group ID: ${member.groupId}`)
+            return res.json({ message: "Forbidden" })
         }
 
     } else {

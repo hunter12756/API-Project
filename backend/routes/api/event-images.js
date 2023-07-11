@@ -29,14 +29,16 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
         }
     })
 
-    if (group.organizerId !== user.id || membership?.status !== 'co-host') {
+    if (group.organizerId === user.id || membership.status === 'co-host') {
+        await image.destroy()
+
+        return res.json({"message": "Successfully deleted"})
+    } else {
         res.status(403);
         return res.json({"message": "Forbidden"})
+
     }
 
-    await image.destroy()
-
-    return res.json({"message": "Successfully deleted"})
 
 
 })

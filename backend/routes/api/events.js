@@ -102,7 +102,7 @@ router.get("/:eventId/attendees", async (req, res) => {
         return res.json({ "Guest Attendees": nonAuthResult });
     }
 
-    return res.json({ "All Attendees": userAttendReformat });
+    return res.json({ "Attendees": userAttendReformat });
 });
 
 //create new attendance
@@ -335,14 +335,15 @@ router.delete("/:eventId", requireAuth, async (req, res) => {
         }
     });
 
-    if (member?.status !== 'co-host' || group.organizerId !== user.id) {
+    if (member.status === 'co-host' || group.organizerId === user.id) {
+        await event.destroy();
+        return res.json({ "result": "success", "message": "Event deleted successfully" });
+    } else {
         res.status(403);
         return res.json({ message: "Forbidden" })
+
     }
 
-    await event.destroy();
-
-    return res.json({ "result": "success", "message": "Event deleted successfully" });
 });
 router.put('/:eventId/attendance', requireAuth, async (req, res) => {
     let eventId = req.params.eventId;
@@ -417,15 +418,17 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res) => {
         return res.json({message: "Attendance does not exist for this User" })
     }
 
-    if (userId!== user.id || group.organizerId !== user.id) {
+    if (userId=== user.id || group.organizerId === user.id) {
+        await attendance.destroy();
+
+        return res.json({ "message": "Successfully deleted attendance from event" })
+    } else {
         res.status(403);
         return res.json({ message: "Forbidden" })
+
     }
 
 
-    await attendance.destroy();
-
-    return res.json({ "message": "Successfully deleted attendance from event" })
 })
 
 
