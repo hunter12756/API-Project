@@ -16,12 +16,7 @@ module.exports = {
       {
         userId:1,
         groupId:1,
-        status:"co-host"
-      },
-      {
-        userId:2,
-        groupId:2,
-        status:"pending"
+        status:"pendin"
       },
       {
         userId:3,
@@ -36,6 +31,8 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Memberships';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options)
+    return queryInterface.bulkDelete(options, {
+      id: { [Op.eq]: [1, 2, 3] }
+    }, {});
   }
 };
