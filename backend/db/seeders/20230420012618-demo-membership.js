@@ -32,7 +32,7 @@ module.exports = {
     options.tableName = 'Memberships';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      id: { [Op.eq]: [1, 2, 3] }
+      status: {[Op.in]:['co-host','member','pending']}
     }, {});
   }
 };
