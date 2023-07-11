@@ -16,7 +16,7 @@ module.exports = {
       {
         userId:1,
         groupId:1,
-        status:"pendin"
+        status:"waitlisted"
       },
       {
         userId:3,
