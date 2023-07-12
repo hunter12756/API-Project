@@ -40,7 +40,12 @@ router.put("/:venueId", requireAuth,validateVenueSignup, async (req, res, next) 
         }
         console.log(group[0].toJSON())
         //this is broken
-        const member = await Membership.findByPk(user.id)
+        const member = await Membership.findOne({
+            where: {
+                userId: user.id,
+                groupId:venue.groupId
+            }
+        })
         if(!member){
             return res.json("Member couldn't be found")
         }

@@ -337,7 +337,7 @@ router.delete("/:eventId", requireAuth, async (req, res) => {
 
     if (member.status === 'co-host' || group.organizerId === user.id) {
         await event.destroy();
-        return res.json({ "result": "success", "message": "Event deleted successfully" });
+        return res.json({ result: "success", message: "Event deleted successfully" });
     } else {
         res.status(403);
         return res.json({ message: "Forbidden" })
