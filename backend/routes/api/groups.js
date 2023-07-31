@@ -614,7 +614,7 @@ router.get('/:groupId/members', async (req, res) => {
             model: User
         }
     });
-    console.log(members)
+    //console.log(members)
     res.json({Members:members})
 
 })

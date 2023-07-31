@@ -498,7 +498,7 @@ router.get('/', async (req, res) => {
 
     pagination.limit = size;
     pagination.offset = size * (page - 1);
-    console.log(where);
+    //console.log(where);
 
     const events = await Event.findAll({
         where,

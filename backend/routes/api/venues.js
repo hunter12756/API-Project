@@ -38,7 +38,7 @@ router.put("/:venueId", requireAuth,validateVenueSignup, async (req, res, next) 
             res.status(404)
             return res.json("Venue could not be found")
         }
-        console.log(group[0].toJSON())
+        //console.log(group[0].toJSON())
         //this is broken
         const member = await Membership.findOne({
             where: {
