@@ -7,7 +7,9 @@ export default function LandingPage() {
     const history = useHistory();
     const user = useSelector(state => state.session.user)
     return(
+        // col
         <div className='landing'>
+            {/* col */}
             <div className='outer'>
                 {/* column */}
                 <div className='inner'>
