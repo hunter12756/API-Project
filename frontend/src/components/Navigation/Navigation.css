@@ -1,13 +1,70 @@
-.hidden {
-    display:none;
+/* Login and Sign Up buttons */
+.loginSignup {
+    display: flex;
+    flex-direction: row;
+    list-style-type:none;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    font-size: 20px;
 }
-.profile-dropdown {
-    background-color: white;
-    border: 2px solid black;
-    position: absolute;
-
-    padding-left: 0px;
-    list-style-type: none;
+/* Targets every child of loginSignup godforsaken class */
+.loginSignup>* {
+    padding-right: 10px;
     cursor: pointer;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+/* Everything in nav element */
+nav {
+    display: flex;
+    z-index: 1;
+    flex-direction: row;
+    border-bottom: solid black;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    position:fixed;
+
+    background-color: white;
+    width: 100%;
+}
+/* ONLY TITLE */
+.navbar{
+    font-size: 40px;
+}
+/* Stops any link from turning purple and no underlines */
+.navbar>* {
+    text-decoration: none;
+    color:black;
+}
+.navbar:visited{
+    color:inherit;
+}
+
+/*!! WHEN USER IS LOGGED IN!!*/
+/* New Group button */
+.new-group{
+    display: flex;
+    flex-direction: row;
+    list-style-type:none;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    font-size: 20px;
+}
+.new-group>*{
+    text-decoration: none;
+    color:black;
+}
+/* User Menu icon */
+.icon-new-group {
+    display: flex;
+    flex-direction: row;
+    list-style-type:none;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+}
+
+.hidden {
+    display: none;
 }

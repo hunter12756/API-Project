@@ -1,23 +1,44 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import OpenModalMenuItem from './OpenModalMenuItem';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
+  let navLinks;
+  if (sessionUser) {
+    navLinks = (
+      <div className='icon-new-group'>
+        <div className='new-group'>
+          <Link>Start a new group</Link>
+        </div>
+        <ProfileButton user={sessionUser} />
+      </div>
+    );
+  } else {
+    navLinks = (
+      <div className='loginSignup'>
+        <OpenModalMenuItem
+          itemText="Log In"
+          modalComponent={<LoginFormModal/>} />
 
+        <OpenModalMenuItem
+          itemText="Sign Up"
+          modalComponent={<SignupFormModal/>} />
+
+      </div>
+    )
+  }
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
-      {isLoaded && (
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
-    </ul>
+    <nav className='navbar'>
+      <NavLink exact to="/">Game Up</NavLink>
+
+      {isLoaded && navLinks}
+    </nav>
   );
 }
 
