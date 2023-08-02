@@ -10,7 +10,6 @@ const DELETE_GROUP = ' groups/deleteGroup'
 // ACTION CREATORS
 export const getAllGroups = (groups) => {
     return {
-
         type: GET_ALL_GROUPS,
         payload: groups,
     }
@@ -48,7 +47,7 @@ export const deleteGroup = (groupId) => {
 //!! THUNKS
 //delete group
 export const deleteGroupThunk = (groupId) => async (dispatch) => {
-    const res = csrfFetch(`/api/groups/${groupId}`, {
+    const res = await csrfFetch(`/api/groups/${groupId}`, {
         method: "DELETE"
     });
     const data = await res.json();
@@ -61,7 +60,7 @@ export const deleteGroupThunk = (groupId) => async (dispatch) => {
 
 //update group
 export const updateGroupThunk = (group, groupId) => async (dispatch) => {
-    const res = csrfFetch(`/api/groups/${groupId}`, {
+    const res = await csrfFetch(`/api/groups/${groupId}`, {
         method: "PUT",
         body: JSON.stringify(group)
     });
@@ -75,7 +74,7 @@ export const updateGroupThunk = (group, groupId) => async (dispatch) => {
 }
 //create group
 export const createGroupThunk = (group) => async (dispatch) => {
-    const res = csrfFetch(`/api/groups`, {
+    const res = await csrfFetch(`/api/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(group)
@@ -91,30 +90,29 @@ export const createGroupThunk = (group) => async (dispatch) => {
 }
 //get All groups
 export const getAllGroupsThunk = () => async (dispatch) => {
-    try{
-        const res = csrfFetch('/api/groups')
+    try {
+        const res = await csrfFetch('/api/groups')
 
-    if (!res.ok) {
+        if (!res.ok) {
+            const data = await res.json();
+            return console.log(data.errors);
+        }
         const data = await res.json();
-        return console.log(data.errors);
-
+        console.log(data)
+        let normalizedGroups = {};
+        for (let group of data.Groups) {
+            normalizedGroups[group.id] = group;
+        }
+        dispatch(getAllGroups(normalizedGroups));
+        return data;
+    } catch (e) {
+        console.error("ERROR GETTING GROUP", e)
     }
-    const data = await res.json();
-    console.log(data)
-    let normalizedGroups = {};
-    for(let group of data.Groups){
-        normalizedGroups[group.id]=group;
-    }
-    dispatch(getAllGroups(normalizedGroups));
-    return data;
-} catch (e) {
-    console.error("ERROR GETTING GROUP",e)
-}
 
 }
 //get ONE group
 export const getOneGroupThunk = (groupId) => async (dispatch) => {
-    const res = csrfFetch(`/api/groups/${groupId}`);
+    const res = await csrfFetch(`/api/groups/${groupId}`);
     if (res.ok) {
         const group = await res.json();
         return dispatch(getOneGroup(group));
@@ -124,29 +122,29 @@ export const getOneGroupThunk = (groupId) => async (dispatch) => {
     }
 }
 // !! REDUCER
-const initialState = {};
-const groupReducer = (state = initialState, action)=>{
+const initialState = {allGroups:{},singleGroup:{}};
+const groupReducer = (state = initialState, action) => {
     let newState;
-    switch(action.type){
+    switch (action.type) {
         case GET_ALL_GROUPS:
-            newState={...state, groups: {...Object.values(action.payload)}}
-            console.log("ALL GROUPS MOFAAAA:", newState)
+            newState = { ...state, allGroups: action.payload }
+            console.log("ALL GROUPS:", newState)
             return newState
         case GET_ONE_GROUP:
-            newState={...state, group: action.payload }
+            newState = { ...state, group: action.payload }
             console.log("CURRENT GROUP: ", newState)
             return newState;
         case CREATE_GROUP:
-            newState = {...state, newGroup: action.payload}
-            console.log("NEW GROUP", newState)
+            newState = { ...state, newGroup: action.payload }
+            console.log("NEW GROUP:", newState)
             return newState;
         case UPDATE_GROUP:
-            newState = {...state, updatedGroup: action.payload}
+            newState = { ...state, updatedGroup: action.payload }
             console.log("UPDATED GROUP", newState)
             return newState;
         case DELETE_GROUP:
-            newState={...state}
-            newState.group.group={};
+            newState = { ...state }
+            newState.groups.group = {};
             console.log("WHATEVER GROUP DELETE SHOULD NOT SHOW UP IN THIS: ", newState)
             return newState;
         default:

@@ -12,19 +12,30 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId:1,
-        url:"https://static.designboom.com",
+        url:"https://i.imgur.com/JBI0wxv.png",
         preview:true
       },
       {
         groupId:2,
-        url:"https://secure.meetupstatic.com/photos",
+        url:"https://i.imgur.com/3JImW6K.png",
         preview:true
       },
       {
         groupId:3,
-        url:"https://zoaroutdoor.com/wp-content/uploads",
+        url:"https://i.imgur.com/Tz2dOsC.png",
         preview:true
       },
+      {
+        groupId:4,
+        url:"https://i.imgur.com/t4tvlna.png",
+        preview:true
+      },
+      {
+        groupId:5,
+        url:"https://i.imgur.com/HUoGq0f.png",
+        preview:true
+      }
+
 
     ], {});
   },

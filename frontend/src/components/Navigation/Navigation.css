@@ -16,21 +16,21 @@
 /* Everything in nav element */
 nav {
     display: flex;
-    z-index: 1;
+
     flex-direction: row;
     border-bottom: solid black;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+
+    height: 7vh;
     position:fixed;
 
     background-color: white;
     width: 100%;
-}
-/* ONLY TITLE */
-.navbar{
     font-size: 40px;
 }
+/* ONLY TITLE */
+
 /* Stops any link from turning purple and no underlines */
 .navbar>* {
     text-decoration: none;

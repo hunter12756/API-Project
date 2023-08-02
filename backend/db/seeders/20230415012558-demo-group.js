@@ -12,8 +12,8 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         organizerId: 1,
-        name: "Lovers of dance",
-        about: "We are the people who really love to dance here.",
+        name: "General Gamers",
+        about: "We are people who love to casually game: smash bros, stardew valley, mario kart, and party games",
         type: "In person",
         private: false,
         city: "New York City",
@@ -21,22 +21,41 @@ module.exports = {
       },
       {
         organizerId: 2,
-        name: "Animal fans",
-        about: "We love animals here",
-        type: "In person",
+        name: "CSGO Group",
+        about: "We are mid-high ELO CSGO group looking for new members, we host tournaments, scrims, and more",
+        type: "Online",
         private: false,
         city: "Los Angeles",
         state: "California"
       },
       {
         organizerId: 3,
-        name: "Business networkers",
-        about: "We like to do business and network.",
+        name: "League of Legends Clan",
+        about: "We are a LoL clan that are always looking for new members to play and have fun with! We offer scrims, coaching, practices, and have a e-sports team as well",
         type: "Online",
         private: true,
         city: "Dallas",
         state: "Texas"
-      }
+      },
+      {
+        organizerId: 4,
+        name: "OSU!",
+        about: "Come enjoy the fun popular rhythm game known as Osu! that comes with four different modes, Standar, mania, taiko, and catch. We host weekly tournaments with prize pools as well!",
+        type: "Online",
+        private: true,
+        city: "Dallas",
+        state: "Texas"
+      },
+      {
+        organizerId: 5,
+        name: "Terraria",
+        about:"Chill group to play terraria with, modded and vanilla playthroughs offered, come grind!",
+        type: "Online",
+        private: true,
+        city: "Atlanta",
+        state: "Georgia"
+      },
+
     ], {})
   },
 
