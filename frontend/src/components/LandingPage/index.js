@@ -1,6 +1,6 @@
 import './LandingPage.css';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import SignupFormModal from '../SignupFormModal';
 export default function LandingPage() {
@@ -35,7 +35,18 @@ export default function LandingPage() {
                     <h1> How Game Up works</h1>
                     <p>Game Up is a user friendly site that enables its users to find like minded gamers that share their similar interests to form groups and friendships to play games together!</p>
                 </div>
+            <div className='landing-page-stacks'>
+                <div>
+                    <Link to='/groups'> GROUPS</Link>
+                </div>
+                <div>
+                    <Link> EVENTS </Link>
+                </div>
+                <div>
+                    <Link> Create New Group</Link>
+                </div>
 
+            </div>
             </div>
 
         </div>
