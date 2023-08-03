@@ -24,6 +24,9 @@
     padding-bottom: 1.2rem;
 
 }
+.one-group:hover{
+    background-color: grey;
+}
 #img{
     width:200px;
     height:200px;
@@ -45,7 +48,7 @@
 }
 #numEvents {
     padding-top:50px;
-    
+
 }
 /*! Top Part !*/
 .event-group-links{
