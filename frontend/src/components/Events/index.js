@@ -45,9 +45,10 @@ export default function Events() {
                                             <div id="name">
                                                 <h1>{event.name}</h1>
                                             </div>
-                                            <div id='location'>
+                                            {/* Broken on render */}
+                                            {/* <div id='location'>
                                                 <p>{event.Group.city + ', ' + event.Group.state}</p>
-                                            </div>
+                                            </div> */}
                                             <div id='about'>
                                                 {event.description}
                                             </div>
