@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage"
 import {Route} from 'react-router-dom';
 import Groups from './components/Groups'
-
+import Events from './components/Events'
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,6 +25,9 @@ function App() {
           </Route>
           <Route path='/groups'>
             <Groups/>
+          </Route>
+          <Route path ='/events'>
+            <Events/>
           </Route>
         </Switch>}
     </>

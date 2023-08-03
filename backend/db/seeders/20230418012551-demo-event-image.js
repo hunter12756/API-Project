@@ -12,19 +12,29 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId:1,
-        url: 'www.deez1.com',
+        url:"https://i.imgur.com/JBI0wxv.png",
         preview:true
       },
       {
         eventId:2,
-        url: 'www.deez2.com',
-        preview:false
+        url:"https://i.imgur.com/3JImW6K.png",
+        preview:true
       },
       {
         eventId:3,
-        url: 'www.deez3.com',
+        url:"https://i.imgur.com/Tz2dOsC.png",
         preview:true
       },
+      {
+        eventId:4,
+        url:"https://i.imgur.com/t4tvlna.png",
+        preview:true
+      },
+      {
+        eventId:5,
+        url:"https://i.imgur.com/HUoGq0f.png",
+        preview:true
+      }
 
 
     ], {});

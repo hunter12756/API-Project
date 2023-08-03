@@ -1,21 +1,21 @@
-import './Groups.css'
+import './Events.css'
 import { useParams, Link, useHistory, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import * as groupData from '../../store/groups'
+import * as eventData from '../../store/events'
 
-export default function Groups() {
+export default function Events() {
     const params = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const path = window.location.pathname;
     //load up da data
-    let groups = useSelector(state => state.group.allGroups);
-    let groupsArr = Object.values(groups)
+    let events = useSelector(state => state.event.allEvents);
+    let eventsArr = Object.values(events)
 
 
     useEffect(() => {
-        dispatch(groupData.getAllGroupsThunk())
+        dispatch(eventData.getAllEventsThunk())
     }, [dispatch])
     return (
         <>
@@ -27,33 +27,36 @@ export default function Groups() {
 
                     </div>
                     <div className='link-subtext'>
-                        Groups in Game Up
+                        Events in Game Up
                     </div>
                 </div>
                 <div className='groups-container'>
                     <div className='all-groups'>
-                        {groupsArr.map(group => {
+                        {eventsArr.map(event => {
 
                             return (
-                                <NavLink id="middle-links" key={group.id} to={`groups/${group.id}`}>
-                                    {console.log(group.Groups)}
+                                <NavLink id="middle-links" key={event.id} to={`groups/${event.id}`}>
+                                    {console.log(event.Events)}
                                     <div className='one-group'>
                                         <div className='img-container'>
-                                            <img id='img' src={group.previewImage}></img>
+                                            <img id='img' src={event.previewImage}></img>
                                         </div>
                                         <div className='group-info'>
                                             <div id="name">
-                                                <h1>{group.name}</h1>
+                                                <h1>{event.name}</h1>
                                             </div>
                                             <div id='location'>
-                                                <p>{group.city + ', ' + group.state}</p>
+                                                <p>{event.Group.city + ', ' + event.Group.state}</p>
                                             </div>
                                             <div id='about'>
-                                                {group.about}
+                                                {event.description}
                                             </div>
-                                            {group.private ?
+                                            <div id='time'>
+                                            {event.startDate + ' End: ' + event.endDate}
+                                            </div>
+                                            {event.private ?
                                                 <div id="numEvents">
-                                                   {group.Events} Events   * Private
+                                                   {event.Events} Events   * Private
                                                 </div>
                                                 :
                                                 <div id="numEvents">

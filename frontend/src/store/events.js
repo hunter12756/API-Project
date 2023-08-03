@@ -58,7 +58,7 @@ export const deleteEvent = (eventId) => {
 //!! THUNKS
 //delete event
 export const deleteEventThunk = (eventId) => async (dispatch) => {
-    const res = csrfFetch(`/api/events/${eventId}`, {
+    const res = await csrfFetch(`/api/events/${eventId}`, {
         method: "DELETE"
     });
     // Maybe not needed bc we are just nuking it?
@@ -72,7 +72,7 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
 
 //update group
 export const updateEventThunk = (event, eventId) => async (dispatch) => {
-    const res = csrfFetch(`/api/events/${eventId}`, {
+    const res = await csrfFetch(`/api/events/${eventId}`, {
         method: "PUT",
         body: JSON.stringify(event)
     });
@@ -86,7 +86,7 @@ export const updateEventThunk = (event, eventId) => async (dispatch) => {
 }
 //create event
 export const createEventThunk = (event) => async (dispatch) => {
-    const res = csrfFetch(`/api/events`, {
+    const res = await csrfFetch(`/api/events`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(event)
@@ -102,22 +102,23 @@ export const createEventThunk = (event) => async (dispatch) => {
 }
 //get All events
 export const getAllEventsThunk = () => async (dispatch) => {
-    const res = csrfFetch(`/api/events`)
-    if (res.ok) {
-        const allEvents = await res.json();
-        let normalizedEvents = {};
-        for(let event of allEvents.Events){
-            normalizedEvents[event.id]=event;
-        }
-        return dispatch(getAllEvents(normalizedEvents));
-    } else {
+    const res = await csrfFetch(`/api/events`)
+    if (!res.ok) {
         const data = await res.json();
-        return console.log(data.errors)
+        return console.log(data.errors);
     }
+    const data = await res.json();
+    console.log(data)
+    let normalizedEvents = {};
+    for (let event of data.Events) {
+        normalizedEvents[event.id] = event;
+    }
+    dispatch(getAllEvents(normalizedEvents));
+    return data;
 }
 //get ONE group
 export const getOneEventThunk = (eventId) => async (dispatch) => {
-    const res = csrfFetch(`/api/events/${eventId}`);
+    const res = await csrfFetch(`/api/events/${eventId}`);
     if (res.ok) {
         const event = await res.json();
         return dispatch(getOneEvent(event));
@@ -127,29 +128,29 @@ export const getOneEventThunk = (eventId) => async (dispatch) => {
     }
 }
 // !! REDUCER
-const initialState = {};
+const initialState = {allEvents:{},singleEvent:{}};
 const eventReducer = (state = initialState, action)=>{
     let newState;
     switch(action.type){
         case GET_ALL_EVENTS:
-            newState={...state, events: {...Object.values(action.payload)}}
-            console.log("ALL EVENTS MOFAAAA:", newState)
+            newState={...state, allEvents: action.payload}
+            console.log("ALL EVENTS:", newState)
             return newState
         case GET_ONE_EVENT:
-            newState={...state, event: action.payload }
+            newState={...state, singleEvent: action.payload }
             console.log("CURRENT EVENT: ", newState)
             return newState;
         case CREATE_EVENT:
-            newState = {...state, newEvent: action.payload}
+            newState = {...state, singleEvent: action.payload}
             console.log("NEW EVENT: ", newState)
             return newState;
         case UPDATE_EVENT:
-            newState = {...state, updatedEvent: action.payload}
+            newState = {...state, singleEvent: action.payload}
             console.log("UPDATED GROUP", newState)
             return newState;
         case DELETE_EVENT:
             newState={...state}
-            newState.event.event={};
+            newState.allEvents.singleEvent={};
             console.log("WHATEVER EVENT DELETED SHOULD NOT SHOW UP IN THIS: ", newState)
             return newState;
         default:

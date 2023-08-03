@@ -131,20 +131,20 @@ const groupReducer = (state = initialState, action) => {
             console.log("ALL GROUPS:", newState)
             return newState
         case GET_ONE_GROUP:
-            newState = { ...state, group: action.payload }
+            newState = { ...state, singleGroup: action.payload }
             console.log("CURRENT GROUP: ", newState)
             return newState;
         case CREATE_GROUP:
-            newState = { ...state, newGroup: action.payload }
+            newState = { ...state, singleGroup: action.payload }
             console.log("NEW GROUP:", newState)
             return newState;
         case UPDATE_GROUP:
-            newState = { ...state, updatedGroup: action.payload }
+            newState = { ...state, singleGroup: action.payload }
             console.log("UPDATED GROUP", newState)
             return newState;
         case DELETE_GROUP:
             newState = { ...state }
-            newState.groups.group = {};
+            newState.allGroups.singleGroup = {};
             console.log("WHATEVER GROUP DELETE SHOULD NOT SHOW UP IN THIS: ", newState)
             return newState;
         default:
