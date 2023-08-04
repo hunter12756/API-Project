@@ -28,15 +28,19 @@ export default function EventDetail() {
                 <div className='back-link'>
                     <NavLink to='/events'>{'< '}Events</NavLink>
                 </div>
+                <div id='name-detail'>
+                            <h1> {event.name}</h1>
+                        </div>
                 <div className='top-info'>
+                <div>
+                    Hosted by, {event.Group.Organizer + event.Group.Organizer}
+                </div>
                     <div id='img-container'>
                         <img className='img' alt='preview' src={event.EventImages[0].url}></img>
                         {console.log(event.EventImages[0].url)}
                     </div>
                     <div id='info-container'>
-                        <div id='name-detail'>
-                            <h1> {event.name}</h1>
-                        </div>
+
                         <div id='location-detail'>
                             {event.state}
                         </div>
@@ -46,9 +50,10 @@ export default function EventDetail() {
                         {/* <div id='organizer-detail'>
                             Organized by {group.Organizer.firstName + ' ' + group.Organizer.lastName}
                         </div> */}
-                        
+
                         {/* TODO ADD IMPLEMENTATION */}
                         <div id='authorized-btn' hidden={!currentUser || currentUser.id !== event.Group.id}>
+                            {console.log(event)}
                             <OpenModalButton
                                 id='link-btns'
                                 modalComponent={<DeleteEventModal />}
@@ -58,12 +63,9 @@ export default function EventDetail() {
 
                 </div>
                 <div className='middle-info'>
-                    <h1>Organizer</h1>
-                    {/* <div id='organizer-detail'>
-                        {group.Organizer.firstName + ' ' + group.Organizer.lastName}
-                    </div> */}
-                    <div>
-
+                    <h1>Details</h1>
+                    <div id='description-detail'>
+                        {event.description}
                     </div>
 
                 </div>

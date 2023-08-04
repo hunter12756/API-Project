@@ -12,7 +12,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         venueId: 1,
-        groupId: 2,
+        groupId: 1,
         name: "Smash Bros Tournament",
         description: "Join your friends in a Smash bros tournament! Switches provided and prizes will be given out as well! Will last three days so gather your friends and come along",
         type: "In person",
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         venueId: 2,
-        groupId: 1,
+        groupId: 2,
         name: "CSGO: Team Tryouts",
         description: "We are hosting team tryouts, we have two openings on our main roster and will be taking 30 people and seeing who the two best will be!",
         type: "Online",

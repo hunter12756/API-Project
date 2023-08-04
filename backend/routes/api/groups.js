@@ -571,7 +571,6 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     }
 
     if (member.status !== 'co-host' && group.organizerId !== user.id) {
-        console.log("org id: " + group.organizerId + "userId: " + user.id)
         console.log(member.status)
         res.status(403)
         return res.json({ message: "Forbidden" })

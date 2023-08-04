@@ -3,6 +3,7 @@ import { useParams, useHistory, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as groupData from '../../store/groups'
+import * as eventData from '../../store/events'
 import OpenModalButton from '../OpenModalButton'
 import DeleteGroupModal from './DeleteGroupModal';
 
@@ -12,6 +13,7 @@ export default function GroupDetail() {
     let history = useHistory();
     const currentUser = useSelector(state => state.session.user)
     let group = useSelector(state => state.group.singleGroup);
+    let events = useSelector(state=> state.event)
     console.log(group)
     useEffect(() => {
         dispatch(groupData.getOneGroupThunk(groupId))
@@ -26,7 +28,7 @@ export default function GroupDetail() {
         <>
             <div className='group-info-page'>
                 <div className='back-link'>
-                    <NavLink to='/groups'>{'< '}Groups</NavLink>
+                    <NavLink id='back-button' to='/groups'>{'< '}Groups</NavLink>
                 </div>
                 <div className='top-info'>
                     <div id='img-container'>
@@ -70,8 +72,9 @@ export default function GroupDetail() {
                     <div id='organizer-detail'>
                         {group.Organizer.firstName + ' ' + group.Organizer.lastName}
                     </div>
-                    <div>
-
+                    <h1>What we're about</h1>
+                    <div id='about-detail'>
+                        {group.about}
                     </div>
 
                 </div>
