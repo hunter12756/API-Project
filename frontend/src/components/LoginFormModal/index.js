@@ -51,6 +51,15 @@ function LoginFormModal() {
         )}
         <button type="submit">Log In</button>
       </form>
+      <button
+      onClick={()=>{
+        dispatch(sessionActions.login({
+          credential:'Demo-lition',password:'password'
+        })).then(closeModal)
+      }}
+      >
+        Log in as Demo User
+        </button>
     </>
   );
 }

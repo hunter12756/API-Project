@@ -1,7 +1,8 @@
 import './LandingPage.css';
 import { useSelector } from 'react-redux';
 import { NavLink, } from 'react-router-dom';
-
+import OpenModalMenuButton from '../OpenModalButton'
+import SignupFormModal from '../SignupFormModal';
 export default function LandingPage() {
     // const history = useHistory();
     const user = useSelector(state => state.session.user)
@@ -73,6 +74,11 @@ export default function LandingPage() {
                         </NavLink>
                     </div>
 
+                </div>
+                <div className={user ? 'hidden' : 'join-meetup-btn'}>
+                    <OpenModalMenuButton
+                        buttonText="Join Game Up"
+                        modalComponent={<SignupFormModal />} />
                 </div>
             </div>
 

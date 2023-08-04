@@ -52,7 +52,8 @@ export const deleteGroupThunk = (groupId) => async (dispatch) => {
     });
     const data = await res.json();
     if (res.ok) {
-        return dispatch(deleteGroup(groupId));
+        dispatch(deleteGroup(groupId));
+        return data;
     } else {
         return console.log(data.errors)
     }
