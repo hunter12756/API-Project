@@ -93,7 +93,8 @@ export const createGroupThunk = (group, url) => async (dispatch) => {
                 data.GroupImages =[image]
             }
         }
-        return dispatch(createGroup(data));
+        dispatch(createGroup(data));
+        return data;
     } else {
         const data = await res.json();
         return console.log(data.errors)

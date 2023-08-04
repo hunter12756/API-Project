@@ -36,7 +36,7 @@ export default function GroupForm() {
         dispatch(groupData.createGroupThunk(newGroup, url))
             .then((data) => {
                 //this is pushing to /groups/groups/theId
-                history.push(`groups/${data.id}`);
+                history.push(`/groups/${data.id}`);
             })
             .catch((e) => {
                 console.log("Error making group: ", e)

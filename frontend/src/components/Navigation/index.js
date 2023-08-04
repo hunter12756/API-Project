@@ -14,7 +14,7 @@ function Navigation({ isLoaded }) {
     navLinks = (
       <div className='icon-new-group'>
         <div className='new-group'>
-          <Link to={'groups/create'}>Start a new group</Link>
+          <Link to={'/groups/create'}>Start a new group</Link>
         </div>
         <ProfileButton user={sessionUser} />
       </div>
