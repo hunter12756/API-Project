@@ -37,17 +37,23 @@ export default function LandingPage() {
                 </div>
                 <div className='landing-page-stacks'>
                     <div className='card'>
-
                         <NavLink className='link' to='/groups'>
-                            <img src='/images/allGroup.svg'></img>
-                            See all groups
+                            <div>
+                                <img src='/images/allGroup.svg'></img>
+                            </div>
+                            <div id='link-text'>
+                                See all groups
+                            </div>
                         </NavLink>
                     </div>
                     <div className='card'>
-
                         <NavLink className='link' to='/events'>
-                            <img src='/images/allEvents.svg'></img>
-                            Find an event
+                            <div>
+                                <img src='/images/allEvents.svg'></img>
+                            </div>
+                            <div id='link-text'>
+                                Find an event
+                            </div>
                         </NavLink>
                     </div>
                     <div className={user ? 'card' : 'disabled-card'}>
@@ -58,10 +64,12 @@ export default function LandingPage() {
                                     e.preventDefault()
                                 }
                             }}>
-                            <img src='/images/createGroup.svg'></img>
-
-                            Start a new Group
-                            <p>Start your own gaming group on our platform</p>
+                            <div>
+                                <img src='/images/createGroup.svg'></img>
+                            </div>
+                            <div id='link-text'>
+                                Start a new Group
+                            </div>
                         </NavLink>
                     </div>
 

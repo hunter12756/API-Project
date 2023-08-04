@@ -73,15 +73,26 @@ export const updateGroupThunk = (group, groupId) => async (dispatch) => {
     }
 }
 //create group
-export const createGroupThunk = (group) => async (dispatch) => {
+export const createGroupThunk = (group, url) => async (dispatch) => {
     const res = await csrfFetch(`/api/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(group)
 
     });
-    const data = await res.json();
     if (res.ok) {
+        const data = await res.json();
+        if (url) {
+            const newRes = await csrfFetch(`/api/groups/${data.id}/images`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({url:url,preview:true})
+            });
+            if(newRes.ok){
+                const image = await newRes.json();
+                data.GroupImages =[image]
+            }
+        }
         return dispatch(createGroup(data));
     } else {
         const data = await res.json();
@@ -122,7 +133,7 @@ export const getOneGroupThunk = (groupId) => async (dispatch) => {
     }
 }
 // !! REDUCER
-const initialState = {allGroups:{},singleGroup:{}};
+const initialState = { allGroups: {}, singleGroup: {} };
 const groupReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
@@ -135,11 +146,11 @@ const groupReducer = (state = initialState, action) => {
             console.log("CURRENT GROUP: ", newState)
             return newState;
         case CREATE_GROUP:
-            newState = { ...state, singleGroup: action.payload }
+            newState = { ...state, allGroups: {...state.allGroups, [action.payload.group.id]: action.payload} }
             console.log("NEW GROUP:", newState)
             return newState;
         case UPDATE_GROUP:
-            newState = { ...state, singleGroup: action.payload }
+            newState = { ...state, allGroups: {...state.allGroups, [action.payload.group.id]: action.payload} }
             console.log("UPDATED GROUP", newState)
             return newState;
         case DELETE_GROUP:

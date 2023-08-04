@@ -40,8 +40,16 @@
     align-items: center;
     align-content: center;
  }
+ .link{
+    text-decoration: none;
+    color:black;
+ }
 .disabled-link:hover, .disabled-link:active, .disabled-link {
     text-decoration: none;
     cursor:default;
     color:grey;
+}
+
+#link-text{
+    padding-left: 20px;
 }
