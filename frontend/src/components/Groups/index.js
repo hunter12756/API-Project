@@ -1,13 +1,13 @@
 import './Groups.css'
-import { useParams, Link, useHistory, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as groupData from '../../store/groups'
 
 export default function Groups() {
-    const params = useParams();
+
     const dispatch = useDispatch();
-    const history = useHistory();
+
     const path = window.location.pathname;
     //load up da data
     let groups = useSelector(state => state.group.allGroups);
@@ -39,7 +39,7 @@ export default function Groups() {
                                     {console.log(group.Groups)}
                                     <div className='one-group'>
                                         <div className='img-container'>
-                                            <img id='img' src={group.previewImage}></img>
+                                            <img id='img' alt='preview' src={group.previewImage}></img>
                                         </div>
                                         <div className='group-info'>
                                             <div id="name">

@@ -1,7 +1,17 @@
 .about {
     display:flex;
     flex-direction: column;
-    font-size: 20%px;
+    font-size: 20px;
+
+}
+.about>p{
+    font-size: 15px;
+    overflow-wrap: break-word;
+    inline-size: 400px;
+}
+.about>h1{
+    overflow-wrap: break-word;
+    inline-size: 500px;
 }
 
 .inner {
@@ -39,6 +49,7 @@
     flex-direction: row;
     align-items: center;
     align-content: center;
+    padding-top:40px;
  }
  .link{
     text-decoration: none;
@@ -52,4 +63,20 @@
 
 #link-text{
     padding-left: 20px;
+    color:teal
+}
+
+.middle-landing{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.middle-landing>p {
+    overflow-wrap: break-word;
+    inline-size: 300px;
+}
+#title-nav{
+    color:#FF5A5F;
+    font-weight: bold;
 }

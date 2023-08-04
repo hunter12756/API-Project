@@ -35,7 +35,7 @@ function Navigation({ isLoaded }) {
   }
   return (
     <nav className='navbar'>
-      <NavLink exact to="/">Game Up</NavLink>
+      <NavLink id='title-nav' exact to="/">Game Up</NavLink>
 
       {isLoaded && navLinks}
     </nav>

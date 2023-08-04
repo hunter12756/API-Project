@@ -7,6 +7,7 @@
     align-items: center;
     width: 200px;
     font-size: 20px;
+    font-weight: bold;
 }
 /* Targets every child of loginSignup godforsaken class */
 .loginSignup>* {
@@ -28,7 +29,7 @@ nav {
     background-color: white;
     width: 100%;
     font-size: 40px;
-    
+
 }
 /* ONLY TITLE */
 

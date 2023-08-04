@@ -10,6 +10,9 @@ import Events from './components/Events'
 import GroupDetail from "./components/Groups/GroupDetail";
 import EventDetail from './components/Events/EventDetail'
 import GroupForm from './components/Groups/GroupForm'
+import UpdateGroup from "./components/Groups/UpdateGroup";
+import EventForm from './components/Events/EventForm'
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,14 +32,20 @@ function App() {
           <Route exact path ='/groups/create'>
             <GroupForm/>
           </Route>
+          <Route exact path='/groups/:groupId/events/create'>
+            <EventForm/>
+          </Route>
           <Route path ='/groups/:groupId'>
             <GroupDetail/>
           </Route>
-          <Route path ='/events/:eventId'>
-            <EventDetail/>
+          <Route exact path='/groups/:groupId/edit'>
+            <UpdateGroup/>
           </Route>
           <Route path='/groups'>
             <Groups/>
+          </Route>
+          <Route path ='/events/:eventId'>
+            <EventDetail/>
           </Route>
           <Route path ='/events'>
             <Events/>

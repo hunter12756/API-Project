@@ -1,23 +1,27 @@
 import './GroupDetail.css'
-import { useParams, Link, useHistory, NavLink } from 'react-router-dom'
+import { useParams, useHistory, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as groupData from '../../store/groups'
+import OpenModalButton from '../OpenModalButton'
+import DeleteGroupModal from './DeleteGroupModal';
 
-export default function GroupDetail(){
-    let {groupId} = useParams();
+export default function GroupDetail() {
+    let { groupId } = useParams();
     let dispatch = useDispatch();
-    const currentUser = useSelector(state=>state.session.user)
-    let group = useSelector(state=> state.group.singleGroup);
+    let history = useHistory();
+    const currentUser = useSelector(state => state.session.user)
+    let group = useSelector(state => state.group.singleGroup);
     console.log(group)
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(groupData.getOneGroupThunk(groupId))
-    },[dispatch,groupId])
+    }, [dispatch, groupId])
 
-    if(!group.id) return null;
+    if (!group.id) return null;
     const comingSoon = () => {
         alert("Feature coming soon...")
     }
+
     return (
         <>
             <div className='group-info-page'>
@@ -26,7 +30,7 @@ export default function GroupDetail(){
                 </div>
                 <div className='top-info'>
                     <div id='img-container'>
-                        <img className='img' src={group.GroupImages[0].url}></img>
+                        <img className='img' alt='preview' src={group.GroupImages[0].url}></img>
                         {console.log(group.GroupImages[0].url)}
                     </div>
                     <div id='info-container'>
@@ -37,7 +41,7 @@ export default function GroupDetail(){
                             {group.state}
                         </div>
                         <div id='numMembers-detail'>
-                           {group.private ? <div>{group.numMembers} Members · Private</div> : <div>{group.numMembers} Members · Public</div> }
+                            {group.private ? <div>{group.numMembers} Members · Private</div> : <div>{group.numMembers} Members · Public</div>}
                         </div>
                         <div id='organizer-detail'>
                             Organized by {group.Organizer.firstName + ' ' + group.Organizer.lastName}
@@ -47,9 +51,16 @@ export default function GroupDetail(){
                         </div>
                         {/* TODO ADD IMPLEMENTATION */}
                         <div id='authorized-btn' hidden={!currentUser || currentUser.id !== group.Organizer.id}>
-                            <button>Create Event</button>
-                            <button>Update</button>
-                            <button>Delete</button>
+                            <NavLink id='link-btns' to={`/groups/${groupId}/events/create`}>
+                                <button onClick=''>Create Event</button>
+                            </NavLink>
+                            <NavLink id='link-btns' to={`/groups/${groupId}/edit`}>
+                                <button onClick=''>Update</button>
+                            </NavLink>
+                            <OpenModalButton
+                            id='link-btns'
+                                modalComponent={<DeleteGroupModal />}
+                                buttonText='Delete' />
                         </div>
                     </div>
 

@@ -1,6 +1,6 @@
 import './GroupForm.css'
-import { useParams, Link, useHistory, NavLink, } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import {  useHistory,  } from 'react-router-dom'
+import { useDispatch, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as groupData from '../../store/groups'
 
@@ -24,13 +24,14 @@ export default function GroupForm() {
         if (Object.values(validationErrors).length) {
 
         }
+
         const newGroup = {
             city,
             state,
             name,
             about,
             type,
-            private:true
+            private:privacy==='true'
         }
         console.log(newGroup)
         dispatch(groupData.createGroupThunk(newGroup, url))
