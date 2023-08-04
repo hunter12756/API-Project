@@ -11,35 +11,35 @@ const DELETE_GROUP = ' groups/deleteGroup'
 export const getAllGroups = (groups) => {
     return {
         type: GET_ALL_GROUPS,
-        payload: groups,
+        groups,
     }
 }
 export const getOneGroup = (group) => {
     return {
 
         type: GET_ONE_GROUP,
-        payload: group,
+        group,
     }
 }
 export const createGroup = (group) => {
     return {
 
         type: CREATE_GROUP,
-        payload: group,
+        group,
     }
 }
 export const updateGroup = (group) => {
     return {
 
         type: UPDATE_GROUP,
-        payload: group,
+        group,
     }
 }
 export const deleteGroup = (groupId) => {
     return {
 
         type: DELETE_GROUP,
-        payload: groupId,
+        groupId,
     }
 }
 
@@ -138,19 +138,19 @@ const groupReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case GET_ALL_GROUPS:
-            newState = { ...state, allGroups: action.payload }
+            newState = { ...state, allGroups: action.groups }
             console.log("ALL GROUPS:", newState)
             return newState
         case GET_ONE_GROUP:
-            newState = { ...state, singleGroup: action.payload }
+            newState = { ...state, singleGroup: action.group }
             console.log("CURRENT GROUP: ", newState)
             return newState;
         case CREATE_GROUP:
-            newState = { ...state, allGroups: {...state.allGroups, [action.payload.group.id]: action.payload} }
+            newState = { ...state, allGroups: {...state.allGroups, [action.group.id]: action.group} }
             console.log("NEW GROUP:", newState)
             return newState;
         case UPDATE_GROUP:
-            newState = { ...state, allGroups: {...state.allGroups, [action.payload.group.id]: action.payload} }
+            newState = { ...state, allGroups: {...state.allGroups, [action.group.id]: action.group} }
             console.log("UPDATED GROUP", newState)
             return newState;
         case DELETE_GROUP:

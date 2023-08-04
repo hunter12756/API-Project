@@ -7,7 +7,7 @@ const GET_ALL_EVENTS_BY_GROUP = "events/allEventsPerGroup"
 const GET_ONE_EVENT = "events/oneEvent"
 // not sure on this create one
 const CREATE_EVENT = 'events/createEvent'
-const UPDATE_EVENT = 'events/updateEvent'
+
 const DELETE_EVENT = 'events/deleteEvent'
 
 // ACTION CREATORS
@@ -39,13 +39,7 @@ export const createEvent = (event) => {
         payload:event,
     }
 }
-export const updateEvent = (event) => {
-    return {
 
-        type: UPDATE_EVENT,
-        payload: event,
-    }
-}
 export const deleteEvent = (eventId) => {
     return {
 
@@ -70,20 +64,6 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
     }
 }
 
-//update group
-export const updateEventThunk = (event, eventId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/events/${eventId}`, {
-        method: "PUT",
-        body: JSON.stringify(event)
-    });
-    if (res.ok) {
-        const updatedEvent = await res.json();
-        return dispatch(updateEvent(updatedEvent));
-    } else {
-        const data = await res.json();
-        return console.log(data.errors)
-    }
-}
 //create event
 export const createEventThunk = (event) => async (dispatch) => {
     const res = await csrfFetch(`/api/events`, {
@@ -143,10 +123,6 @@ const eventReducer = (state = initialState, action)=>{
         case CREATE_EVENT:
             newState = {...state, singleEvent: action.payload}
             console.log("NEW EVENT: ", newState)
-            return newState;
-        case UPDATE_EVENT:
-            newState = {...state, singleEvent: action.payload}
-            console.log("UPDATED GROUP", newState)
             return newState;
         case DELETE_EVENT:
             newState={...state}

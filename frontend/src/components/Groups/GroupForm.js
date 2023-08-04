@@ -30,12 +30,13 @@ export default function GroupForm() {
             name,
             about,
             type,
-            privacy
+            private:true
         }
         console.log(newGroup)
         dispatch(groupData.createGroupThunk(newGroup, url))
-            .then((res) => {
-                history.push(`groups/${res.id}`);
+            .then((data) => {
+                //this is pushing to /groups/groups/theId
+                history.push(`groups/${data.id}`);
             })
             .catch((e) => {
                 console.log("Error making group: ", e)
