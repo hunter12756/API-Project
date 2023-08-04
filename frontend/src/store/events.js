@@ -61,16 +61,27 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
 }
 
 //create event
-export const createEventThunk = (event) => async (dispatch) => {
-    const res = await csrfFetch(`/api/events`, {
+export const createEventThunk = (event,groupId, url) => async (dispatch) => {
+    const res = await csrfFetch(`/api/groups/${groupId}/events`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(event)
-
     });
     if (res.ok) {
-        const newEvent = await res.json();
-        return dispatch(createEvent(newEvent));
+        const data = await res.json();
+        if (url) {
+            const newRes = await csrfFetch(`/api/events/${data.id}/images`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({url:url,preview:true})
+            });
+            if(newRes.ok){
+                const image = await newRes.json();
+                data.EventImages =[image]
+            }
+        }
+        dispatch(createEvent(data));
+        return data;
     } else {
         const data = await res.json();
         return console.log(data.errors)

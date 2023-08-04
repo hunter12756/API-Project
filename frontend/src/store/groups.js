@@ -66,7 +66,8 @@ export const updateGroupThunk = (group, groupId) => async (dispatch) => {
     });
     if (res.ok) {
         const updatedGroup = await res.json();
-        return dispatch(updateGroup(updatedGroup));
+        dispatch(updateGroup(updatedGroup));
+        return updatedGroup;
     } else {
         const data = await res.json();
         return console.log(data.errors)

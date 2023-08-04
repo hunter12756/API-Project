@@ -9,10 +9,13 @@
     font-size: 14px;
 }
 
-.middle-event-form, .date-form, .url-form, .description-form .submit-btn{
+.middle-event-form, .date-form, .url-form, .description-event-form .submit-btn{
     border-top: 2px solid lightgrey;
     padding-top:10px;
     padding-bottom:0px;
+}
+.url-form{
+    border-bottom:2px solid lightgray;
 }
 #event-input{
     padding-bottom: 20px;

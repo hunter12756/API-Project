@@ -1,13 +1,13 @@
 import './UpdateGroup.css'
-import {  useHistory,  } from 'react-router-dom'
-import { useDispatch, } from 'react-redux';
+import {  useHistory, useParams  } from 'react-router-dom'
+import { useDispatch, useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as groupData from '../../store/groups'
 
 export default function UpdateGroup() {
     const history = useHistory();
     const dispatch = useDispatch();
-
+    let {groupId} = useParams();
     //setters
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
@@ -15,9 +15,9 @@ export default function UpdateGroup() {
     const [about, setAbout] = useState("");
     const [type, setType] = useState(undefined);
     const [privacy, setPrivacy] = useState(undefined);
-    const [url, setUrl] = useState("");
     const [validationErrors, setValidationErrors] = useState({});
 
+    let group = useSelector(state => state.group.singleGroup);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +34,7 @@ export default function UpdateGroup() {
             private:privacy==='true'
         }
         console.log(newGroup)
-        dispatch(groupData.createGroupThunk(newGroup, url))
+        dispatch(groupData.updateGroupThunk(newGroup,groupId))
             .then((data) => {
                 //this is pushing to /groups/groups/theId
                 history.push(`/groups/${data.id}`);
@@ -47,9 +47,8 @@ export default function UpdateGroup() {
         setState("");
         setName("");
         setAbout("");
-        setType(undefined);
-        setPrivacy(undefined);
-        setUrl("")
+        setType("");
+        setPrivacy("");
     }
 
     useEffect(() => {
@@ -72,14 +71,8 @@ export default function UpdateGroup() {
         if (!privacy) {
             errors.privacy = "Visibility Type is required"
         }
-        if (!url) {
-            errors.url = 'URL is required'
-        }
-        if (!url.endsWith('.jpeg') && !url.endsWith('.jpg') && !url.endsWith('.png')) {
-            errors.url = 'Image url must end in .png, .jpg, or .jpeg'
-        }
         setValidationErrors(errors)
-    }, [city, state, name, about, type, privacy, url])
+    }, [city, state, name, about, type, privacy])
     return (
         <form onSubmit={handleSubmit}>
             <div className='group-form'>
@@ -94,7 +87,7 @@ export default function UpdateGroup() {
                         <input
                             type='text'
                             id='city'
-                            value={city}
+                            defaultValue={group.city}
                             onChange={(e) => setCity(e.target.value)}
                             placeholder='city'
                         />
@@ -108,7 +101,7 @@ export default function UpdateGroup() {
                         <input
                             type='text'
                             id='state'
-                            value={state}
+                            defaultValue={group.state}
                             onChange={(e) => setState(e.target.value)}
                             placeholder='state'
                         />
@@ -125,7 +118,7 @@ export default function UpdateGroup() {
                         <input
                             type='text'
                             id='name'
-                            value={name}
+                            defaultValue={group.name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder='What is your group name?'
                         />
@@ -146,7 +139,7 @@ export default function UpdateGroup() {
 
                     <textarea
                         id='about'
-                        value={about}
+                        defaultValue={group.about}
                         onChange={(e) => setAbout(e.target.value)}
                         placeholder="Please write atleast 30 characters"
                     >
@@ -166,7 +159,7 @@ export default function UpdateGroup() {
 
                         <select
                             className='select-form'
-                            value={type}
+                            defaultValue={group.type}
                             onChange={(e) => setType(e.target.value)}
                         >
                             <option value={undefined}>Select one</option>
@@ -186,7 +179,7 @@ export default function UpdateGroup() {
 
                         <select
                             className='select-form'
-                            value={privacy}
+                            defaultValue={group.private}
                             onChange={(e) => setPrivacy(e.target.value)}
                         >
                             <option value={undefined}>Select one</option>
@@ -195,23 +188,6 @@ export default function UpdateGroup() {
                         </select>
                         {validationErrors.privacy && (
                             <p className='errors'> {validationErrors.privacy}</p>
-                        )}
-                        </div>
-                    </div>
-                    {/* URL */}
-                    <div id='url'>
-                        <label>Please add in image url for your group below:</label>
-                        <div id='final-input'>
-
-                        <input
-                            type='text'
-                            id='url'
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
-                            placeholder='Image Url'
-                        />
-                        {validationErrors.url && (
-                            <p className='errors'> {validationErrors.url}</p>
                         )}
                         </div>
                     </div>

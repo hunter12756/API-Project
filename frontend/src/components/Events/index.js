@@ -37,6 +37,8 @@ export default function Events() {
                             return (
                                 <NavLink id="middle-links" key={event.id} to={`events/${event.id}`}>
                                     {console.log(event.Events)}
+
+
                                     <div className='one-group'>
                                         <div className='img-container'>
                                             <img id='img' src={event.previewImage}></img>
@@ -53,15 +55,15 @@ export default function Events() {
                                                 {event.description}
                                             </div>
                                             <div id='time'>
-                                            {event.startDate + ' End: ' + event.endDate}
+                                                {"Start: " + event.startDate.split("T")[0] + ' End: ' + event.endDate.split("T")[0]}
                                             </div>
                                             {event.private ?
                                                 <div id="numEvents">
-                                                   {event.Events} Events   * Private
+                                                    {event.Events} Events · Private
                                                 </div>
                                                 :
                                                 <div id="numEvents">
-                                                   10 Events   * Public
+                                                    {event.Events}· Public
                                                 </div>
                                             }
                                         </div>

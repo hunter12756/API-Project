@@ -47,8 +47,8 @@ export default function GroupForm() {
         setState("");
         setName("");
         setAbout("");
-        setType(undefined);
-        setPrivacy(undefined);
+        setType("");
+        setPrivacy("");
         setUrl("")
     }
 

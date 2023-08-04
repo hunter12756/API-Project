@@ -29,7 +29,7 @@ export default function LandingPage() {
                     </div>
 
                 </div>
-                <div class='middle-landing' >
+                <div className='middle-landing' >
                     <h1> How Game Up works</h1>
                     <p>Game Up is a user friendly site that enables its users to find like minded gamers that share their similar interests to form groups and friendships to play games together!</p>
                 </div>

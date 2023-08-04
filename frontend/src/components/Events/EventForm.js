@@ -1,5 +1,5 @@
 import './EventForm.css'
-import { useHistory, } from 'react-router-dom'
+import { useHistory, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as eventData from '../../store/events'
@@ -7,13 +7,15 @@ import * as eventData from '../../store/events'
 export default function EventForm() {
     const history = useHistory();
     const dispatch = useDispatch();
+    let {groupId} = useParams();
     let group = useSelector(state => state.group.singleGroup);
-    console.log(group)
+    // console.log(group)
     //setters
     const [type, setType] = useState(undefined);
     const [eventName, setEventName] = useState("");
     const [privacy, setPrivacy] = useState(undefined);
     const [price, setPrice] = useState('');
+    const [capacity,setCapacity] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [url, setUrl] = useState('');
@@ -23,18 +25,19 @@ export default function EventForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newEvent = {
-            eventName,
+            name: eventName,
             type,
+            capacity:Number(capacity),
             private: privacy === 'true',
-            price,
+            price:Number(price),
             startDate,
             endDate,
             url,
             description
         }
-        console.log(newEvent)
-        dispatch(eventData.createEventThunk(newEvent, url))
+        dispatch(eventData.createEventThunk(newEvent, groupId,url))
             .then((data) => {
+                console.log("eventstuff:" + data)
                 //this is pushing to /groups/groups/theId
                 history.push(`/events/${data.id}`);
             })
@@ -43,18 +46,24 @@ export default function EventForm() {
             })
         setEventName("");
         setDescription("");
-        setType(undefined);
-        setPrivacy(undefined);
+        setType("");
+        setPrivacy("");
         setUrl("")
         setStartDate("");
         setEndDate("")
         setPrice("");
+        setCapacity('');
     }
 
     useEffect(() => {
         const errors = {}
         if (!eventName) {
             errors.eventName = "Name is required"
+        }
+        if(!capacity){
+            errors.capacity='Capacity is required'
+        }else if (!Number.isInteger(Number(capacity))) {
+            errors.capacity = 'Price must be a number'
         }
         if (!type) {
             errors.type = "Event Type is required"
@@ -73,9 +82,10 @@ export default function EventForm() {
         } else if (description.length < 30) {
             errors.description = "Description must be at least 30 characters long"
         }
+
         if (!price) {
             errors.price = 'Price is required'
-        } else if (!Number.isInteger(price)) {
+        } else if (!Number.isInteger(Number(price))) {
             errors.price = 'Price must be a number'
         }
         if (!startDate) {
@@ -91,7 +101,7 @@ export default function EventForm() {
             errors.endDate = "End date cannot be before start date";
         }
         setValidationErrors(errors)
-    }, [eventName, description, price, startDate, endDate, type, privacy, url])
+    }, [eventName, description, price,capacity,startDate, endDate, type, privacy, url])
     return (
         <form onSubmit={handleSubmit}>
             <div className='event-form'>
@@ -161,6 +171,21 @@ export default function EventForm() {
                             )}
                         </div>
                     </div>
+                    <div id='capacity'>
+                        <label>What is the capacity for your event?</label>
+                        <div id='event-input'>
+                            <input
+                                type='integer'
+                                id='capacity'
+                                value={capacity}
+                                onChange={(e) => setCapacity(e.target.value)}
+                                placeholder='0'
+                            />
+                            {validationErrors.capacity && (
+                                <p className='errors'> {validationErrors.capacity}</p>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className='date-form'>
                     <label>When does your event start?</label>
@@ -206,7 +231,9 @@ export default function EventForm() {
                             )}
                         </div>
                     </div>
-                    <div className='description-form'>
+                </div>
+                <div className='description-event-form'>
+                    <div id='description'>
                         <label>Please describe your event below:</label>
                         <div id='event-input'>
                             <textarea
@@ -222,11 +249,11 @@ export default function EventForm() {
                         </div>
                     </div>
                 </div>
-                <div className='submit-btn'>
-                    <button disabled={Object.values(validationErrors).length} type='submit'>Create Event</button>
-                </div>
-            </div>
 
+            <div className='submit-btn'>
+                <button disabled={Object.values(validationErrors).length} type='submit'>Create Event</button>
+            </div>
+            </div>
         </form>
     );
 }
