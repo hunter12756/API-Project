@@ -45,19 +45,19 @@ export default function Groups() {
                                             <div id="name">
                                                 <h1>{group.name}</h1>
                                             </div>
-                                            <div id='location'>
+                                            <div id='location-group'>
                                                 <p>{group.city + ', ' + group.state}</p>
                                             </div>
-                                            <div id='about'>
+                                            <div id='about-group'>
                                                 {group.about}
                                             </div>
                                             {group.private ?
-                                                <div id="numEvents">
-                                                   {group.Events} Events   * Private
+                                                <div id="numMembers-group">
+                                                   {group.numMembers} Members · Private
                                                 </div>
                                                 :
-                                                <div id="numEvents">
-                                                   10 Events   * Public
+                                                <div id="numMembers-group">
+                                                    {group.numMembers} Members · Public
                                                 </div>
                                             }
                                         </div>

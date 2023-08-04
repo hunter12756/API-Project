@@ -34,3 +34,14 @@
     width:400px;
     height:200px;
 }
+ .landing-page-stacks {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+ }
+.disabled-link:hover, .disabled-link:active, .disabled-link {
+    text-decoration: none;
+    cursor:default;
+    color:grey;
+}

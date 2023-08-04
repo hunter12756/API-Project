@@ -35,7 +35,7 @@ export default function Events() {
                         {eventsArr.map(event => {
 
                             return (
-                                <NavLink id="middle-links" key={event.id} to={`groups/${event.id}`}>
+                                <NavLink id="middle-links" key={event.id} to={`events/${event.id}`}>
                                     {console.log(event.Events)}
                                     <div className='one-group'>
                                         <div className='img-container'>

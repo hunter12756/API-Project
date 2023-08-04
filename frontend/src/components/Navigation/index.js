@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink,Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -14,7 +14,7 @@ function Navigation({ isLoaded }) {
     navLinks = (
       <div className='icon-new-group'>
         <div className='new-group'>
-          <Link>Start a new group</Link>
+          <Link to={'groups/create'}>Start a new group</Link>
         </div>
         <ProfileButton user={sessionUser} />
       </div>

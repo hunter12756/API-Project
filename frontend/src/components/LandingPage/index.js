@@ -1,12 +1,12 @@
 import './LandingPage.css';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import SignupFormModal from '../SignupFormModal';
 export default function LandingPage() {
     const history = useHistory();
     const user = useSelector(state => state.session.user)
-    return(
+    return (
         // col
         <div className='landing'>
             {/* col */}
@@ -21,12 +21,12 @@ export default function LandingPage() {
                             become friendships
                         </h1>
                         <p>
-                        Game Together: Where Gamers Unite! Join our vibrant online community dedicated to bringing gamers from all walks of life together. Whether you're a seasoned gamer or a noob, GameTogether offers a supportive and motivating space to connect with like-minded individuals who share your passion for gaming.
+                            Game Together: Where Gamers Unite! Join our vibrant online community dedicated to bringing gamers from all walks of life together. Whether you're a seasoned gamer or a noob, GameTogether offers a supportive and motivating space to connect with like-minded individuals who share your passion for gaming.
                         </p>
 
                     </div>
                     <div>
-                        <img  className='main-img' src='/images/landing-main.png' alt='main-image'></img>
+                        <img className='main-img' src='/images/landing-main.png' alt='main-image'></img>
                     </div>
                 </div>
 
@@ -35,18 +35,37 @@ export default function LandingPage() {
                     <h1> How Game Up works</h1>
                     <p>Game Up is a user friendly site that enables its users to find like minded gamers that share their similar interests to form groups and friendships to play games together!</p>
                 </div>
-            <div className='landing-page-stacks'>
-                <div>
-                    <Link to='/groups'> GROUPS</Link>
-                </div>
-                <div>
-                    <Link> EVENTS </Link>
-                </div>
-                <div>
-                    <Link> Create New Group</Link>
-                </div>
+                <div className='landing-page-stacks'>
+                    <div className='card'>
 
-            </div>
+                        <NavLink className='link' to='/groups'>
+                            <img src='/images/allGroup.svg'></img>
+                            See all groups
+                        </NavLink>
+                    </div>
+                    <div className='card'>
+
+                        <NavLink className='link' to='/events'>
+                            <img src='/images/allEvents.svg'></img>
+                            Find an event
+                        </NavLink>
+                    </div>
+                    <div className={user ? 'card' : 'disabled-card'}>
+
+                        <NavLink to='/groups/create' className={user ? 'link' : 'disabled-link'}
+                            onClick={(e) => {
+                                if (!user) {
+                                    e.preventDefault()
+                                }
+                            }}>
+                            <img src='/images/createGroup.svg'></img>
+
+                            Start a new Group
+                            <p>Start your own gaming group on our platform</p>
+                        </NavLink>
+                    </div>
+
+                </div>
             </div>
 
         </div>

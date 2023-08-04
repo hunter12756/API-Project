@@ -82,7 +82,7 @@ export const createGroupThunk = (group) => async (dispatch) => {
     });
     const data = await res.json();
     if (res.ok) {
-        return dispatch(createGroup(group));
+        return dispatch(createGroup(data));
     } else {
         const data = await res.json();
         return console.log(data.errors)

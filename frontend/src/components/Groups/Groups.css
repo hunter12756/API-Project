@@ -30,6 +30,8 @@
 #img{
     width:200px;
     height:200px;
+    background-color: lightgrey;
+    border-radius: 5px;
 }
 .group-info{
     overflow-wrap: break-word;
@@ -37,16 +39,16 @@
     padding-left: 1rem;
 
 }
-#location {
+#location-group {
     padding-top: 10px;
 }
-#name {
+#name-group {
     padding-top: 10px;
 }
-#about {
+#about-group {
     padding-top: 30px;
 }
-#numEvents {
+#numMembers-group {
     padding-top:50px;
 
 }
