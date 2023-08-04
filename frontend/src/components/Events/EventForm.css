@@ -1,0 +1,38 @@
+.event-form {
+    padding-top: 90px;
+    display:flex;
+    flex-direction: column;
+    padding-left: 20rem;
+}
+.errors{
+    color:red;
+    font-size: 14px;
+}
+
+.middle-event-form, .date-form, .url-form, .description-form .submit-btn{
+    border-top: 2px solid lightgrey;
+    padding-top:10px;
+    padding-bottom:0px;
+}
+#event-input{
+    padding-bottom: 20px;
+}
+.submit-btn{
+    padding-top: 20px;
+}
+.submit-btn>button{
+    color:white;
+    background-color: red;
+    width:100px;
+    height:30px;
+    box-shadow: 2px 2px 2px black;
+    border:1px solid black;
+}
+
+label{
+    padding-top: 20px;
+    font-size: 14px;
+}
+h2{
+    font-size: 24px;
+}

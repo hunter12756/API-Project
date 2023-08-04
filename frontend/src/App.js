@@ -35,7 +35,7 @@ function App() {
           <Route exact path='/groups/:groupId/events/create'>
             <EventForm/>
           </Route>
-          <Route path ='/groups/:groupId'>
+          <Route exact path ='/groups/:groupId'>
             <GroupDetail/>
           </Route>
           <Route exact path='/groups/:groupId/edit'>

@@ -13,38 +13,34 @@ const DELETE_EVENT = 'events/deleteEvent'
 // ACTION CREATORS
 export const getAllEvents = (events) => {
     return {
-
         type: GET_ALL_EVENTS,
-        payload: events,
+        events,
     }
 }
 export const getOneEvent = (event) => {
     return {
-
         type: GET_ONE_EVENT,
-        payload: event,
+        event,
     }
 }
 
 export const getEventPerGroup = (event) =>{
     return {
         type: GET_ALL_EVENTS_BY_GROUP,
-        payload: event
+        event
     }
 }
 export const createEvent = (event) => {
     return {
-
         type: CREATE_EVENT,
-        payload:event,
+        event,
     }
 }
 
 export const deleteEvent = (eventId) => {
     return {
-
         type: DELETE_EVENT,
-        payload: eventId,
+        eventId,
     }
 }
 
@@ -113,15 +109,15 @@ const eventReducer = (state = initialState, action)=>{
     let newState;
     switch(action.type){
         case GET_ALL_EVENTS:
-            newState={...state, allEvents: action.payload}
+            newState={...state, allEvents: action.events}
             console.log("ALL EVENTS:", newState)
             return newState
         case GET_ONE_EVENT:
-            newState={...state, singleEvent: action.payload }
+            newState={...state, singleEvent: action.event }
             console.log("CURRENT EVENT: ", newState)
             return newState;
         case CREATE_EVENT:
-            newState = {...state, singleEvent: action.payload}
+            newState = { ...state, allEvents: {...state.allEvents, [action.event.id]: action.event} }
             console.log("NEW EVENT: ", newState)
             return newState;
         case DELETE_EVENT:

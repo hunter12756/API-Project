@@ -52,13 +52,13 @@ export default function GroupDetail() {
                         {/* TODO ADD IMPLEMENTATION */}
                         <div id='authorized-btn' hidden={!currentUser || currentUser.id !== group.Organizer.id}>
                             <NavLink id='link-btns' to={`/groups/${groupId}/events/create`}>
-                                <button onClick=''>Create Event</button>
+                                <button >Create Event</button>
                             </NavLink>
                             <NavLink id='link-btns' to={`/groups/${groupId}/edit`}>
-                                <button onClick=''>Update</button>
+                                <button>Update</button>
                             </NavLink>
                             <OpenModalButton
-                            id='link-btns'
+                                id='link-btns'
                                 modalComponent={<DeleteGroupModal />}
                                 buttonText='Delete' />
                         </div>
