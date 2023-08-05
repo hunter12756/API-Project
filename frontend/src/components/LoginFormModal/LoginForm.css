@@ -1,5 +1,60 @@
-.loginBtn {
+/* .loginBtn {
     border-radius: 8px;
     font-size: 15px;
-    font-family:'Times New Roman', Times, serif;
+} */
+/* .login-form> label {
+    display:flex;
+    flex-direction: column;
+    margin-left: 10px;
+} */
+
+#modal-content {
+    width:400px;
+    max-width: 700px;
+    border-radius: 10px;
+    border:20px solid white;
+    padding:20px;
+}
+#real-login-btn{
+    width:200px;
+    background-color:#FF5A5F;
+    color:white;
+    border-radius: 6px;
+    margin-top:10px;
+    height:3rem;
+    border:none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+#real-login-btn:hover{
+    background-color: hsl(358, 73%, 53%);
+}
+#real-login-btn:disabled{
+    background-color: grey;
+    cursor:text;
+}
+#demo-login{
+    border:none;
+    background-color: white;
+    cursor: pointer;
+    margin-left: 40px;
+    color:teal;
+    text-decoration: underline;
+    font-size: 16px;
+}
+
+#user-input>input, #password-input>input{
+    display: flex;;
+    width:22rem;
+    height:1.25rem;
+    border-radius: .5rem;
+    margin-bottom: 10px;
+    border:1px solid #CCCCCC
+}
+
+#login-title{
+    padding-bottom: 20px;
 }

@@ -55,15 +55,14 @@
     text-decoration: none;
     color:black;
  }
+ #link-text{
+     padding-left: 20px;
+     color:teal
+ }
 .disabled-link:hover, .disabled-link:active, .disabled-link {
     text-decoration: none;
     cursor:default;
     color:grey;
-}
-
-#link-text{
-    padding-left: 20px;
-    color:teal
 }
 
 .middle-landing{

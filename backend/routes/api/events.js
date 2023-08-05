@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
-const { Event, Group, Venue, Attendance, EventImage, Membership, User } = require('../../db/models');
+const { Event, Group, Venue, Attendance, EventImage, GroupImage, Membership, User } = require('../../db/models');
 const router = express.Router();
 
 const validateEventSignup = [
@@ -225,6 +225,7 @@ router.get('/:eventId', async (req, res) => {
         res.status(404);
         res.json({ "message": "Event couldn't be found" })
     }
+
     const payload = event.toJSON();
     const attenCount = await Attendance.count({
         where: {
@@ -233,18 +234,38 @@ router.get('/:eventId', async (req, res) => {
     })
     payload.numAttending = attenCount
     payload.Group = await Group.findByPk(payload.groupId, {
-        attributes: ['id', 'name', 'private', 'city', 'state']
+        attributes: ['id', 'name', 'private', 'city', 'state','organizerId'],
+        raw:true
     });
+
+
+    payload.GroupImages = await GroupImage.findAll({
+        where:{
+            groupId:payload.Group.id
+        },
+        attributes:['id','url','preview'],
+        raw:true
+    });
+
+    payload.Organizer = await User.findByPk(payload.Group.organizerId, {
+        attributes: ['id', 'firstName', 'lastName'],
+        raw:true
+    })
+
+
     payload.Venue = await Venue.findByPk(payload.venueId, {
-        attributes: ['id', 'address', 'city', 'state', 'lat', 'lng']
+        attributes: ['id', 'address', 'city', 'state', 'lat', 'lng'],
+        raw:true
     });
     payload.EventImages = await EventImage.findAll({
         where: {
             eventId: payload.id
         },
-        attributes: ['id', 'url', 'preview']
+        attributes: ['id', 'url', 'preview'],
+        raw:true
     });
-
+    console.log("\nPayload ",payload, '\n')
+  
     return res.json(payload)
 })
 //edit event

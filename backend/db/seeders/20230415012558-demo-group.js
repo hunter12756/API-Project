@@ -38,7 +38,7 @@ module.exports = {
         state: "Texas"
       },
       {
-        organizerId: 4,
+        organizerId: 3,
         name: "OSU!",
         about: "Come enjoy the fun popular rhythm game known as Osu! that comes with four different modes, Standar, mania, taiko, and catch. We host weekly tournaments with prize pools as well!",
         type: "Online",
@@ -47,7 +47,7 @@ module.exports = {
         state: "Texas"
       },
       {
-        organizerId: 5,
+        organizerId: 3,
         name: "Terraria",
         about:"Chill group to play terraria with, modded and vanilla playthroughs offered, come grind!",
         type: "Online",

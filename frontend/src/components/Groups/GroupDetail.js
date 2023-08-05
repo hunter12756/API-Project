@@ -6,7 +6,7 @@ import * as groupData from '../../store/groups'
 import * as eventData from '../../store/events'
 import OpenModalButton from '../OpenModalButton'
 import DeleteGroupModal from './DeleteGroupModal';
-
+import EventsList from './EventsList'
 export default function GroupDetail() {
     let { groupId } = useParams();
     let dispatch = useDispatch();
@@ -24,6 +24,13 @@ export default function GroupDetail() {
         alert("Feature coming soon...")
     }
 
+    const eventsList = () =>{
+        if(events===undefined){
+            return <h3>No Upcoming Events</h3>
+        } else {
+            return <EventsList events={events} groupId={groupId}/>;
+        }
+    }
     return (
         <>
             <div className='group-info-page'>
@@ -79,14 +86,9 @@ export default function GroupDetail() {
 
                 </div>
 
-                {/* if group has past events put in div that shows pastevents */}
-                <div className='upcoming-events-container'>
-
-                </div>
-                {/* if group has past events put in div that shows pastevents */}
-                <div className='past-events-container'>
-
-                </div>
+                <div className='events-list'>
+                    {eventsList()}
+                 </div>
             </div>
         </>
     )

@@ -26,32 +26,43 @@ export default function EventDetail() {
         <>
             <div className='group-info-page'>
                 <div className='back-link'>
-                    <NavLink to='/events'>{'< '}Events</NavLink>
+                    <NavLink id='back-button'to='/events'>{'< '}Events</NavLink>
                 </div>
                 <div id='name-detail'>
-                            <h1> {event.name}</h1>
-                        </div>
-                <div className='top-info'>
-                <div>
-                    Hosted by, {event.Group.Organizer + event.Group.Organizer}
+                    <h1> {event.name}</h1>
                 </div>
+                    <div>
+                        Hosted by, {event.Organizer.firstName + ' ' + event.Organizer.lastName}
+                    </div>
+                <div className='top-info'>
                     <div id='img-container'>
                         <img className='img' alt='preview' src={event.EventImages[0].url}></img>
                         {console.log(event.EventImages[0].url)}
                     </div>
                     <div id='info-container'>
+                        <div >
 
-                        <div id='location-detail'>
-                            {event.state}
+                            <NavLink id='group-link-info' to={`/groups/${event.Group.id}`}>
+
+                                <div>
+
+                                    <img id='tiny-img' src={event.GroupImages[0].url}></img>
+                                </div>
+                                <div>
+                                    <div>
+                                        {event.Group.name}
+                                    </div>
+                                    <div id='ocation-detail'>
+                                        {event.Group.state + ", " + event.Group.city}
+                                    </div>
+                                    <div id='umMembers-detail'>
+                                        {event.Group.private ? <div>· Private</div> : <div> · Public</div>}
+                                    </div>
+
+                                </div>
+                            </NavLink>
                         </div>
-                        {/* <div id='numMembers-detail'>
-                            {event.private ? <div>{event.numMembers} Members · Private</div> : <div>{group.numMembers} Members · Public</div>}
-                        </div> */}
-                        {/* <div id='organizer-detail'>
-                            Organized by {group.Organizer.firstName + ' ' + group.Organizer.lastName}
-                        </div> */}
 
-                        {/* TODO ADD IMPLEMENTATION */}
                         <div id='authorized-btn' hidden={!currentUser || currentUser.id !== event.Group.id}>
                             {console.log(event)}
                             <OpenModalButton

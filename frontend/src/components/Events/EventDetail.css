@@ -1,0 +1,12 @@
+#tiny-img{
+    height:60px;
+    width: 60px;
+}
+#group-link-info{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color:black;
+    font-size:12px;
+}
+

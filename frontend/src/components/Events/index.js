@@ -55,7 +55,8 @@ export default function Events() {
                                                 {event.description}
                                             </div>
                                             <div id='time'>
-                                                {"Start: " + event.startDate.split("T")[0] + ' End: ' + event.endDate.split("T")[0]}
+                                                {event.startDate && (
+                                                    "Start: " + event.startDate.split("T")[0] + ' End: ' + event.endDate.split("T")[0])}
                                             </div>
                                             {event.private ?
                                                 <div id="numEvents">

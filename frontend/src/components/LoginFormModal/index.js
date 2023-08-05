@@ -26,40 +26,46 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
+      <h1 id='login-title'>Log In</h1>
+      <form className='login-form' onSubmit={handleSubmit}>
+      {errors.credential && (
+          <p className="errors">{errors.credential}</p>
+        )} <label> Username or Email</label>
+        <div id ='user-input'>
           <input
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+        <label>Password</label>
+        <div id="password-input">
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
+        </div>
+
+        <div className='login-btn-container'>
+          <button disabled={credential.length <4 || password.length < 6} id='real-login-btn' type="submit">Log In</button>
+        </div>
       </form>
-      <button
-      onClick={()=>{
-        dispatch(sessionActions.login({
-          credential:'Demo-lition',password:'password'
-        })).then(closeModal)
-      }}
-      >
-        Log in as Demo User
+
+      <div className="demo-user-container">
+        <button
+          id='demo-login'
+          onClick={() => {
+            dispatch(sessionActions.login({
+              credential: 'Demo-lition', password: 'password'
+            })).then(closeModal)
+          }}
+        >
+          Log in as Demo User
         </button>
+      </div>
     </>
   );
 }

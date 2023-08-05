@@ -5,6 +5,7 @@
     left: 0;
     bottom: 0;
     display: flex;
+
     justify-content: center;
     align-items: center;
   }
@@ -22,4 +23,5 @@
     position: absolute;
     background-color: white;
     border-radius: 5px;
+   
   }
