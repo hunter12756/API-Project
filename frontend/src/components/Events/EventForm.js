@@ -1,21 +1,23 @@
 import './EventForm.css'
-import { useHistory, useParams} from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState, useRef } from 'react';
 import * as eventData from '../../store/events'
 
 export default function EventForm() {
     const history = useHistory();
     const dispatch = useDispatch();
-    let {groupId} = useParams();
+    let { groupId } = useParams();
     let group = useSelector(state => state.group.singleGroup);
+    const user = useSelector(state => state.session.user)
+    const ref = useRef(true);
     // console.log(group)
     //setters
     const [type, setType] = useState(undefined);
     const [eventName, setEventName] = useState("");
     const [privacy, setPrivacy] = useState(undefined);
     const [price, setPrice] = useState('');
-    const [capacity,setCapacity] = useState('');
+    const [capacity, setCapacity] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [url, setUrl] = useState('');
@@ -27,15 +29,15 @@ export default function EventForm() {
         const newEvent = {
             name: eventName,
             type,
-            capacity:Number(capacity),
+            capacity: Number(capacity),
             private: privacy === 'true',
-            price:Number(price),
+            price: Number(price),
             startDate,
             endDate,
             url,
             description
         }
-        dispatch(eventData.createEventThunk(newEvent, groupId,url))
+        dispatch(eventData.createEventThunk(newEvent, groupId, url))
             .then((data) => {
                 console.log("eventstuff:" + data)
                 //this is pushing to /groups/groups/theId
@@ -60,9 +62,9 @@ export default function EventForm() {
         if (!eventName) {
             errors.eventName = "Name is required"
         }
-        if(!capacity){
-            errors.capacity='Capacity is required'
-        }else if (!Number.isInteger(Number(capacity))) {
+        if (!capacity) {
+            errors.capacity = 'Capacity is required'
+        } else if (!Number.isInteger(Number(capacity))) {
             errors.capacity = 'Price must be a number'
         }
         if (!type) {
@@ -101,7 +103,21 @@ export default function EventForm() {
             errors.endDate = "End date cannot be before start date";
         }
         setValidationErrors(errors)
-    }, [eventName, description, price,capacity,startDate, endDate, type, privacy, url])
+    }, [eventName, description, price, capacity, startDate, endDate, type, privacy, url])
+
+    if (!user) {
+        return (
+            <h1 className='error-404'>You must be logged in to access this</h1>
+        )
+    } else {
+        if (!Object.values(group).length) {
+            return (
+                    alert("You must be the owner of the group to create this event"),
+                    history.push('/forbidden')
+            )
+        }
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <div className='event-form'>
@@ -250,9 +266,9 @@ export default function EventForm() {
                     </div>
                 </div>
 
-            <div className='submit-btn'>
-                <button disabled={Object.values(validationErrors).length} type='submit'>Create Event</button>
-            </div>
+                <div className='submit-btn'>
+                    <button disabled={Object.values(validationErrors).length} type='submit'>Create Event</button>
+                </div>
             </div>
         </form>
     );

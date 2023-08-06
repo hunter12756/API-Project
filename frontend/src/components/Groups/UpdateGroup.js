@@ -16,7 +16,7 @@ export default function UpdateGroup() {
     const [type, setType] = useState(undefined);
     const [privacy, setPrivacy] = useState(undefined);
     const [validationErrors, setValidationErrors] = useState({});
-
+    const user = useSelector(state => state.session.user)
     let group = useSelector(state => state.group.singleGroup);
 
     const handleSubmit = async (e) => {
@@ -73,6 +73,17 @@ export default function UpdateGroup() {
         }
         setValidationErrors(errors)
     }, [city, state, name, about, type, privacy])
+    if(!user){
+        return (
+            <h1 className='error-404'>You must be logged in to use this feature</h1>
+        )
+    } else {
+        if(!Object.values(group).length) {
+            return (
+                <h1 className='error-404'> You must be the owner of this Group to access this form</h1>
+            )
+        }
+    }
     return (
         <form onSubmit={handleSubmit}>
             <div className='group-form'>

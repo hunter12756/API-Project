@@ -1,13 +1,13 @@
 import './GroupForm.css'
 import {  useHistory,  } from 'react-router-dom'
-import { useDispatch, } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as groupData from '../../store/groups'
 
 export default function GroupForm() {
     const history = useHistory();
     const dispatch = useDispatch();
-
+    const user = useSelector(state => state.session.user)
     //setters
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
@@ -80,6 +80,12 @@ export default function GroupForm() {
         }
         setValidationErrors(errors)
     }, [city, state, name, about, type, privacy, url])
+
+    if(!user){
+        return(
+            <h1 className='404'>You must be logged in to create a Group</h1>
+        )
+    }
     return (
         <form onSubmit={handleSubmit}>
             <div className='group-form'>

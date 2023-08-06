@@ -12,7 +12,7 @@ import EventDetail from './components/Events/EventDetail'
 import GroupForm from './components/Groups/GroupForm'
 import UpdateGroup from "./components/Groups/UpdateGroup";
 import EventForm from './components/Events/EventForm'
-
+import ForbiddenError from "./components/Forbidden";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -49,6 +49,9 @@ function App() {
           </Route>
           <Route path ='/events'>
             <Events/>
+          </Route>
+          <Route>
+            <ForbiddenError/>
           </Route>
         </Switch>}
     </>
