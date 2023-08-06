@@ -12,11 +12,11 @@ export default function Events() {
     //load up da data
     let events = useSelector(state => state.event.allEvents);
     let eventsArr = Object.values(events)
-
-
+    let timeInAMERICA;
     useEffect(() => {
         dispatch(eventData.getAllEventsThunk())
     }, [dispatch])
+    if(!events) return;
 
     return (
         <>
@@ -33,9 +33,8 @@ export default function Events() {
                 </div>
                 <div className='groups-container'>
                     <div className='all-groups'>
+
                         {eventsArr.map(event => {
-                            const timeInAMERICA = event.startDate.split("T")[1].split("Z")[0].slice(".",5)
-                            
                             return (
                                 <NavLink id="middle-links" key={event.id} to={`events/${event.id}`}>
                                     <div className='one-group'>
@@ -46,7 +45,7 @@ export default function Events() {
                                         <div id='time'>
                                             {console.log(event)}
                                                 {event.startDate && (
-                                                    "Event Date: " + event.startDate.split("T")[0] + ' · ' +timeInAMERICA )}
+                                                    "Event Date: " + event.startDate.split("T")[0] + ' · ' +event.startDate.split("T")[1].split("Z")[0].slice(".",5) )}
                                                     {/* + ' End: ' + event.endDate.split("T")[0])} */}
                                             </div>
                                             <div id="name">

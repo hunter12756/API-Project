@@ -21,8 +21,8 @@ export default function EventDetail() {
     const comingSoon = () => {
         alert("Feature coming soon...")
     }
-    const startTimeAmerica = event.startDate.split("T")[1].split("Z")[0].slice(".",5)
-    const endTimeAmerica =event.endDate.split("T")[1].split("Z")[0].slice(".",5)
+
+
     return (
         <>
             <div className='group-info-page'>
@@ -65,10 +65,10 @@ export default function EventDetail() {
                         <div className='event-detail-info'>
                             <div id='time-container'>
                                 <div id='time-detail'>
-                                    {/* Start: {event.startDate.split("T")[0]+ ' · '+ startTimeAmerica} */}
+                                    Start: {event.startDate.split("T")[0]+ ' · '+ event.startDate.split("T")[1].split("Z")[0].slice(".",5)}
                                 </div>
                                 <div id='time-detail'>
-                                    {/* End: {event.endDate.split("T")[0]+ ' · ' + endTimeAmerica} */}
+                                    End: {event.endDate.split("T")[0]+ ' · ' + event.endDate.split("T")[1].split("Z")[0].slice(".",5)}
                                 </div>
                             </div>
                             <div id='price-container'>
