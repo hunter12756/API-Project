@@ -12,7 +12,7 @@ export default function DeleteEventModal() {
         e.preventDefault();
         dispatch(eventData.deleteEventThunk(event.id))
         closeModal();
-        history.push('/groups')
+        history.push('/events')
     }
     return (
         <>
@@ -20,11 +20,11 @@ export default function DeleteEventModal() {
                 <h1>Confirm Delete</h1>
                 <span>Are you sure you want to remove this event?</span>
                 <div className='delete-container'>
-                    <button id='delete-btn' onClick={handleDelete}>Yes</button>
+                    <button id='delete-btn' onClick={handleDelete}>Yes (Delete Event)</button>
                 </div>
                 <div className='delete-container'>
 
-                    <button id='delete-btn-no' onClick={closeModal}>No</button>
+                    <button id='delete-btn-no' onClick={closeModal}>No (Keep Event)</button>
                 </div>
             </div>
         </>

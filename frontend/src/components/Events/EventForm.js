@@ -15,7 +15,6 @@ export default function EventForm() {
     //setters
     const [type, setType] = useState(undefined);
     const [eventName, setEventName] = useState("");
-    const [privacy, setPrivacy] = useState(undefined);
     const [price, setPrice] = useState('');
     const [capacity, setCapacity] = useState('');
     const [startDate, setStartDate] = useState('');
@@ -30,10 +29,9 @@ export default function EventForm() {
             name: eventName,
             type,
             capacity: Number(capacity),
-            private: privacy === 'true',
             price: Number(price),
-            startDate,
-            endDate,
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
             url,
             description
         }
@@ -49,7 +47,6 @@ export default function EventForm() {
         setEventName("");
         setDescription("");
         setType("");
-        setPrivacy("");
         setUrl("")
         setStartDate("");
         setEndDate("")
@@ -70,9 +67,7 @@ export default function EventForm() {
         if (!type) {
             errors.type = "Event Type is required"
         }
-        if (!privacy) {
-            errors.privacy = "Visibility Type is required"
-        }
+
         if (!url) {
             errors.url = 'URL is required'
         }
@@ -103,7 +98,7 @@ export default function EventForm() {
             errors.endDate = "End date cannot be before start date";
         }
         setValidationErrors(errors)
-    }, [eventName, description, price, capacity, startDate, endDate, type, privacy, url])
+    }, [eventName, description, price, capacity, startDate, endDate, type, url])
 
     if (!user) {
         return (
@@ -156,7 +151,7 @@ export default function EventForm() {
                             )}
                         </div>
                     </div>
-                    <div id='privacy'>
+                    {/* <div id='privacy'>
                         <label>Is this event private or public?</label>
                         <div id='event-input'>
                             <select
@@ -172,7 +167,7 @@ export default function EventForm() {
                                 <p className='errors'> {validationErrors.privacy}</p>
                             )}
                         </div>
-                    </div>
+                    </div> */}
                     <div id='price'>
                         <label>What is the price for your event?</label>
                         <div id='event-input'>
@@ -181,7 +176,7 @@ export default function EventForm() {
                                 id='price'
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
-                                placeholder='0'
+                                placeholder='$0'
                             />
                             {validationErrors.price && (
                                 <p className='errors'> {validationErrors.price}</p>
@@ -208,7 +203,7 @@ export default function EventForm() {
                     <label>When does your event start?</label>
                     <div id='event-input'>
                         <input
-                            type='date'
+                            type='datetime-local'
                             id='startDate'
                             value={startDate}
                             onChange={(e) => setStartDate(e.target.value)}
@@ -221,7 +216,7 @@ export default function EventForm() {
                     <label>When does your event end?</label>
                     <div id='event-input'>
                         <input
-                            type='date'
+                            type='datetime-local'
                             id='endDate'
                             value={endDate}
                             onChange={(e) => setEndDate(e.target.value)}

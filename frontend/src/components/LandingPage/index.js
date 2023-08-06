@@ -45,6 +45,10 @@ export default function LandingPage() {
                             <div id='link-text'>
                                 See all groups
                             </div>
+                            <div id='landing-cap-container'>
+
+                            <p className='landing-captions'>Discover the types of games and genres right for you by exploring the already made communities that span multiple genres of games! You're sure to find something you'll love!</p>
+                            </div>
                         </NavLink>
                     </div>
                     <div className='card'>
@@ -54,6 +58,10 @@ export default function LandingPage() {
                             </div>
                             <div id='link-text'>
                                 Find an event
+                            </div>
+                            <div id='landing-cap-container'>
+
+                            <p className='landing-captions'>Explore the newest gaming events offered by different groups on our platform! Open your mind to new genres and be amazed</p>
                             </div>
                         </NavLink>
                     </div>
@@ -70,6 +78,11 @@ export default function LandingPage() {
                             </div>
                             <div id={user? 'link-text': 'link-text-login'}>
                                 Start a new Group
+
+                            </div>
+                            <div id='landing-cap-container'>
+
+                            <p className='landing-captions'>Start your own gaming group on our platform, gather friends and meet new ones on the way! Create a welcoming community that supports everyone! </p>
                             </div>
                         </NavLink>
                     </div>

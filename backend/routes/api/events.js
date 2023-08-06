@@ -265,7 +265,7 @@ router.get('/:eventId', async (req, res) => {
         raw:true
     });
     console.log("\nPayload ",payload, '\n')
-  
+
     return res.json(payload)
 })
 //edit event
@@ -458,7 +458,6 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res) => {
 router.get('/', async (req, res) => {
     const where = {};
     const { name, type, startDate } = req.query;
-
     //query fileters
     if (name) where.name = {
         [Op.like]: `%${name}%`
@@ -471,7 +470,6 @@ router.get('/', async (req, res) => {
             [Op.gt]: new Date(startDate)
         };
     }
-
     //pagination not working correctly
     const pagination = {};
     let { page, size } = req.query;
@@ -540,10 +538,16 @@ router.get('/', async (req, res) => {
             where: {
                 eventId: curEvent.id,
                 preview: true
-            }
+            },
+            attributes:['url']
         });
 
-        curEvent.previewImage = previewImage?.url ?? 'No preview image for event'
+        // curEvent.previewImage = previewImage?.url ?? 'No preview image for event'
+        if(previewImage){
+            curEvent.previewImage=previewImage.url;
+        } else {
+            curEvent.previewImage='No Preview images found'
+        }
 
         curEvent.Group = await Group.findByPk(curEvent.groupId, {
             attributes: ['id', 'name', 'city', 'state']

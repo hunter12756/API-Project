@@ -82,7 +82,7 @@ export default function UpdateGroup() {
         if(!Object.values(group).length) {
             return (
                 alert("You must be the owner of the Group to update it"),
-                history.push('/forbidden')
+                history.push('')
         )
         }
     }
@@ -206,7 +206,7 @@ export default function UpdateGroup() {
                     </div>
                 </div>
                 <div className='submit-btn'>
-                    <button disabled={Object.values(validationErrors).length} type='submit'>Create Group</button>
+                    <button disabled={Object.values(validationErrors).length} type='submit'>Update Group</button>
                 </div>
             </div>
 

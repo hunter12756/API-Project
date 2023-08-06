@@ -90,7 +90,7 @@ export default function GroupForm() {
     return (
         <form onSubmit={handleSubmit}>
             <div className='group-form'>
-                <h3 id='become-organizer'>Become an Organizer</h3>
+                <h3 id='become-organizer'>Start a new Group</h3>
                 <h2>We'll walk you through a few steps to build your local community</h2>
                 <div className='location-form'>
                     <h2>First, set your group's location</h2>

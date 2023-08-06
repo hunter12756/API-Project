@@ -20,10 +20,10 @@ export default function DeleteGroupModal() {
                 <h1>Confirm Delete</h1>
                 <span>Are you sure you want to remove this group?</span>
                 <div className='delete-container'>
-                    <button id='delete-btn'onClick={handleDelete}>Yes</button>
+                    <button id='delete-btn'onClick={handleDelete}>Yes (Delete Group)</button>
                 </div>
                 <div className='delete-container'>
-                    <button id='delete-btn-no'onClick={closeModal}>No</button>
+                    <button id='delete-btn-no'onClick={closeModal}>No (Keep Group)</button>
                 </div>
             </div>
         </>

@@ -57,7 +57,9 @@
  }
  #link-text{
      padding-left: 20px;
-     color:teal
+     color:teal;
+     font-size: 14px;
+     text-decoration: underline;
  }
 .disabled-link:hover, .disabled-link:active, .disabled-link {
     text-decoration: none;
@@ -96,4 +98,19 @@
 
 .join-meetup-btn{
     padding-top: 30px;
+}
+
+.card{
+    padding-right: 20px;
+    padding-left:20px;
+}
+.landing-captions{
+    font-size: 14px;
+
+    overflow-wrap: break-word;
+    inline-size: 250px;
+}
+
+#landing-cap-container{
+    padding-top:15px;
 }

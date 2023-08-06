@@ -33,7 +33,7 @@ export default function EventDetail() {
                     <h1> {event.name}</h1>
                 </div>
                     <div>
-                        Hosted by, {event.Organizer.firstName + ' ' + event.Organizer.lastName}
+                        Hosted by: {event.Organizer.firstName + ' ' + event.Organizer.lastName}
                     </div>
                 <div className='top-info'>
                     <div id='img-container'>

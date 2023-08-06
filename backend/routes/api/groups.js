@@ -127,6 +127,7 @@ router.get('/:groupId', async (req, res) => {
 
         ],
     });
+    const numEvents = await group.countEvents();
     if (!group) {
         res.status(404);
         res.json({ "message": "Group couldn't be found" });
@@ -138,6 +139,8 @@ router.get('/:groupId', async (req, res) => {
         }
     });
     payload.numMembers = membersCount;
+
+    payload.numEvents =numEvents;
     payload.Organizer = await User.findByPk(payload.organizerId, {
         attributes: ['id', 'firstName', 'lastName']
     })

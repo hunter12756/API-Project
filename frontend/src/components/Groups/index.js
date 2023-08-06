@@ -22,8 +22,8 @@ export default function Groups() {
             <div className='groups-page'>
                 <div className='top'>
                     <div className="event-group-links">
-                        <NavLink id={path.startsWith('/events') ? "top-link-active" : "top-link"} to='/events'>Events</NavLink>
-                        <NavLink id={path.startsWith('/groups') ? "top-link-active" : "top-link"} to='/groups'>Groups</NavLink>
+                        <NavLink id={path.startsWith('/events') ? "top-link-active" : "top-link-total"} to='/events'>Events</NavLink>
+                        <NavLink id={path.startsWith('/groups') ? "top-link-active" : "top-link-total"} to='/groups'>Groups</NavLink>
 
                     </div>
                     <div className='link-subtext'>

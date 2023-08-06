@@ -13,10 +13,12 @@ export default function GroupDetail() {
     let history = useHistory();
     const currentUser = useSelector(state => state.session.user)
     let group = useSelector(state => state.group.singleGroup);
-    let events = useSelector(state=> state.event)
+    let events = useSelector(state=> state.event.allEvents)
+
     console.log(group)
     useEffect(() => {
-        dispatch(groupData.getOneGroupThunk(groupId))
+        dispatch(groupData.getOneGroupThunk(groupId)).then(dispatch(eventData.getAllEventsThunk()))
+
     }, [dispatch, groupId])
 
     if (!group.id) return null;
@@ -24,13 +26,6 @@ export default function GroupDetail() {
         alert("Feature coming soon...")
     }
 
-    const eventsList = () =>{
-        if(events===undefined){
-            return <h3>No Upcoming Events</h3>
-        } else {
-            return <EventsList events={events} groupId={groupId}/>;
-        }
-    }
     return (
         <>
             <div className='group-info-page'>
@@ -50,15 +45,15 @@ export default function GroupDetail() {
                             {group.state}
                         </div>
                         <div id='numMembers-detail'>
-                            {group.private ? <div>{group.numMembers} Members · Private</div> : <div>{group.numMembers} Members · Public</div>}
+                            {console.log("group:info",group)}
+                            {group.private ? <div>{group.numEvents} Events · Private</div> : <div>{group.numEvents} Events · Public</div>}
                         </div>
                         <div id='organizer-detail'>
-                            Organized by {group.Organizer.firstName + ' ' + group.Organizer.lastName}
+                            Organized by: {group.Organizer.firstName + ' ' + group.Organizer.lastName}
                         </div>
-                        <div onClick={comingSoon} id='join-group-btn' hidden={!currentUser || currentUser.id === group.Organizer.id}>
+                        <div onClick={comingSoon} id='join-group-btn-detail' hidden={!currentUser || currentUser.id === group.Organizer.id}>
                             <button>Join this group </button>
                         </div>
-                        {/* TODO ADD IMPLEMENTATION */}
                         <div id='authorized-btn' hidden={!currentUser || currentUser.id !== group.Organizer.id}>
                             <NavLink id='link-btns' to={`/groups/${groupId}/events/create`}>
                                 <button >Create Event</button>
@@ -87,7 +82,7 @@ export default function GroupDetail() {
                 </div>
 
                 <div className='events-list'>
-                    {eventsList()}
+                    { Object.values(events).length && <EventsList events={events} groupId={groupId}/>}
                  </div>
             </div>
         </>

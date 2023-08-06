@@ -30,6 +30,7 @@
     height:30px;
     box-shadow: 2px 2px 2px black;
     border:1px solid black;
+    cursor: pointer;
 }
 
 label{
@@ -46,3 +47,7 @@ h2{
     align-items: center;
 }
 
+button:disabled{
+    background-color: grey;
+    cursor:default;
+}
