@@ -54,7 +54,8 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
     // Maybe not needed bc we are just nuking it?
     const data = await res.json();
     if (res.ok) {
-        return dispatch(deleteEvent(eventId));
+        dispatch(deleteEvent(eventId));
+        return data;
     } else {
         return console.log(data.errors)
     }

@@ -67,3 +67,36 @@
 #organizer-detail{
     padding-bottom: 20px;
 }
+/* eventsLIst.js */
+#event-lists-images{
+    width: 160px;
+    height: 120px;
+    background-color: lightgray;
+    border-radius: 5px;
+
+}
+
+.past-events>*{
+    text-decoration: none;
+}
+.future-events>*{
+    text-decoration: none;
+}
+.past-events{
+    padding-top: 20px;
+}
+.mini-event-time{
+    color:teal;
+}
+.mini-event-name, .mini-event-about {
+    color:black;
+}
+
+.mini-event-location{
+    color:grey;
+}
+.mini-event{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

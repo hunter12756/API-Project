@@ -11,4 +11,38 @@
 }
 #time-container{
     color:grey;
+    display: flex;
+    flex-direction: row;
+
+}
+
+#group-link-bg{
+    background-color: lightgray;
+}
+#group-link-info{
+    margin-bottom: 20px;
+}
+
+
+#time-detail{
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+#time-color{
+    color:teal;
+}
+
+#price-container{
+    color:grey;
+    padding-top: 20px;
+}
+#location-container{
+    color:grey;
+    padding-top: 20px;
+}
+
+#clock-icon{
+    padding-right:20px;
+    margin-top:10px;
 }

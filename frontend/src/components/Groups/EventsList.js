@@ -40,7 +40,34 @@ export default function EventsList({ events, groupId }) {
             {/* Upcoming events */}
             <div className="future-events">
                 <h2>{futureEvents.length > 0 ? `Upcoming Events (${futureEvents.length})` : ''}</h2>
+                {futureEvents.map((futureEvent) => {
+                    { console.log(futureEvent.previewImage) }
+                    return (
+                        <NavLink to={`/events/${futureEvent.id}`}>
+                            <div className="mini-event">
+                                <div className="mini-event-img">
+                                    <img id='event-lists-images' src={futureEvent.previewImage} alt='test'></img>
+                                </div>
+                                <div className="mini-event-info">
+                                    <div className="mini-event-time">
+                                        {futureEvent.startDate.split("T")[0] + ' · ' +'<'+futureEvent.startDate.split("T")[1].split("Z")[0].slice(".",5)+'>'}
+                                    </div>
+                                    <div className="mini-event-name">
+                                        {futureEvent.name}
+                                    </div>
+                                    <div className="mini-event-location">
+                                        {futureEvent.Group.city+', '+futureEvent.Group.state}
+                                    </div>
+                                </div>
+                                <div className="mini-event-about">
+                                        {futureEvent.description}
+                                </div>
+                            </div>
 
+                        </NavLink>
+                    )
+
+                })}
             </div>
             {/* Past events */}
             <div className="past-events">
@@ -49,8 +76,26 @@ export default function EventsList({ events, groupId }) {
                     { console.log(pastEvent.previewImage) }
                     return (
                         <NavLink to={`/events/${pastEvent.id}`}>
-                            <img id='tiny-img' src={pastEvent.previewImage} alt='test'></img>
-                            
+                            <div className="mini-event">
+                                <div className="mini-event-img">
+                                    <img id='event-lists-images' src={pastEvent.previewImage} alt='test'></img>
+                                </div>
+                                <div className="mini-event-info">
+                                    <div className="mini-event-time">
+                                        {pastEvent.startDate.split("T")[0] + ' · ' +'<'+pastEvent.startDate.split("T")[1].split("Z")[0].slice(".",5)+'>'}
+                                    </div>
+                                    <div className="mini-event-name">
+                                        {pastEvent.name}
+                                    </div>
+                                    <div className="mini-event-location">
+                                        {pastEvent.Group.city+', '+pastEvent.Group.state}
+                                    </div>
+                                </div>
+                                <div className="mini-event-about">
+                                        {pastEvent.description}
+                                </div>
+                            </div>
+
                         </NavLink>
                     )
 

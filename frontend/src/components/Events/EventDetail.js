@@ -27,14 +27,14 @@ export default function EventDetail() {
         <>
             <div className='group-info-page'>
                 <div className='back-link'>
-                    <NavLink id='back-button'to='/events'>{'< '}Events</NavLink>
+                    <NavLink id='back-button' to='/events'>{'< '}Events</NavLink>
                 </div>
                 <div id='name-detail'>
                     <h1> {event.name}</h1>
                 </div>
-                    <div>
-                        Hosted by: {event.Organizer.firstName + ' ' + event.Organizer.lastName}
-                    </div>
+                <div>
+                    Hosted by: {event.Organizer.firstName + ' ' + event.Organizer.lastName}
+                </div>
                 <div className='top-info'>
                     <div id='img-container'>
                         <img className='img' alt='preview' src={event.EventImages[0].url}></img>
@@ -44,7 +44,7 @@ export default function EventDetail() {
                         <div >
                             <NavLink id='group-link-info' to={`/groups/${event.Group.id}`}>
 
-                                <div>
+                                <div id='group-link-bg'>
 
                                     <img id='tiny-img' src={event.GroupImages[0].url}></img>
                                 </div>
@@ -63,26 +63,41 @@ export default function EventDetail() {
                             </NavLink>
                         </div>
                         <div className='event-detail-info'>
+
                             <div id='time-container'>
-                                <div id='time-detail'>
-                                    Start: {event.startDate.split("T")[0]+ ' · '+ event.startDate.split("T")[1].split("Z")[0].slice(".",5)}
+                                <div id='clock-icon'>
+
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div >
+                                    <div>
+                                        Start:
+                                        </div>
+                                        <div>
+                                            End:
+                                        </div>
                                 </div>
                                 <div id='time-detail'>
-                                    End: {event.endDate.split("T")[0]+ ' · ' + event.endDate.split("T")[1].split("Z")[0].slice(".",5)}
+                                    <div id='time-color'>
+                                         {event.startDate.split("T")[0] + ' · ' + '<'+event.startDate.split("T")[1].split("Z")[0].slice(".", 5)+'>'}
+                                    </div>
+                                    <div id='time-color'>
+                                         {event.endDate.split("T")[0] + ' · ' +'<'+ event.endDate.split("T")[1].split("Z")[0].slice(".", 5)+'>'}
+                                    </div>
                                 </div>
                             </div>
                             <div id='price-container'>
-                                Price: {event.price<=0 ? 'FREE' : event.price}
+                                <i class="fa-solid fa-dollar-sign"></i> Price: {event.price <= 0 ? 'FREE' : '$' + event.price}
                             </div>
                             <div id='location-container'>
-                                Location: {event.Group.city +', '+ event.Group.state}
+                                <i class="fa-solid fa-map-pin"></i>  Type: {event.type}
                             </div>
                         </div>
                         <div id='authorized-btn' hidden={!currentUser || currentUser.id !== event.Group.id}>
                             {console.log(event)}
                             <OpenModalButton
                                 id='link-btns'
-                                modalComponent={<DeleteEventModal />}
+                                modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
                                 buttonText='Delete' />
                         </div>
                     </div>

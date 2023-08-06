@@ -30,8 +30,8 @@ export default function EventForm() {
             type,
             capacity: Number(capacity),
             price: Number(price),
-            startDate: new Date(startDate),
-            endDate: new Date(endDate),
+            startDate,
+            endDate,
             url,
             description
         }

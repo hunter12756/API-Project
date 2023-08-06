@@ -3,17 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import * as eventData from '../../store/events'
 import './DeleteEvent.css'
-export default function DeleteEventModal() {
+import { useEffect, useState } from 'react';
+export default function DeleteEventModal({eventId,groupId}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
-    const event = useSelector(state=>state.event.singleEvent)
+    // const groups = useSelector(state=>state.groups)
+    // const groupsArr = Object.values(groups)
+    // const filterArr = groupsArr.filter((group)=>group.id===event)
     const handleDelete = (e) => {
         e.preventDefault();
-        dispatch(eventData.deleteEventThunk(event.id))
+        dispatch(eventData.deleteEventThunk(Number(eventId)))
         closeModal();
-        history.push('/events')
+        history.push(`/groups/${groupId}`)
     }
+
     return (
         <>
             <div className='modal-container'>
@@ -23,7 +27,6 @@ export default function DeleteEventModal() {
                     <button id='delete-btn' onClick={handleDelete}>Yes (Delete Event)</button>
                 </div>
                 <div className='delete-container'>
-
                     <button id='delete-btn-no' onClick={closeModal}>No (Keep Event)</button>
                 </div>
             </div>

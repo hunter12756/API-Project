@@ -44,8 +44,7 @@ export default function Events() {
                                         <div id='time'>
                                             {console.log(event)}
                                                 {event.startDate && (
-                                                    "Event Date: " + event.startDate.split("T")[0] + ' · ' +event.startDate.split("T")[1].split("Z")[0].slice(".",5) )}
-                                                    {/* + ' End: ' + event.endDate.split("T")[0])} */}
+                                                    event.startDate.split("T")[0] + ' · ' +'<'+event.startDate.split("T")[1].split("Z")[0].slice(".",5)+'>' )}
                                             </div>
                                             <div id="name">
                                                 <h1>{event && event.name}</h1>
