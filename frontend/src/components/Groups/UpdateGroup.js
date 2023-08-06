@@ -89,8 +89,8 @@ export default function UpdateGroup() {
     return (
         <form onSubmit={handleSubmit}>
             <div className='group-form'>
-                <h3 id='become-organizer'>Become an Organizer</h3>
-                <h2>We'll walk you through a few steps to build your local community</h2>
+                <h3 id='become-organizer'>Update your Groups Information</h3>
+                <h2>We'll walk you through a few steps to update your group's information</h2>
                 <div className='location-form'>
                     <h2>First, set your group's location</h2>
                     <label>Meetup groups meet locally, in person, and online. We'll connect you with people in your area, and more can join you online</label>

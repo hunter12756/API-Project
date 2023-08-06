@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   GroupImage.init({
     groupId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      onDelete:"CASCADE"
     },
     url: {
       type: DataTypes.STRING

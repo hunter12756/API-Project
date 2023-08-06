@@ -135,7 +135,7 @@ const eventReducer = (state = initialState, action)=>{
             return newState;
         case DELETE_EVENT:
             newState={...state}
-            newState.allEvents.singleEvent={};
+            delete newState[action.eventId]
             console.log("WHATEVER EVENT DELETED SHOULD NOT SHOW UP IN THIS: ", newState)
             return newState;
         default:

@@ -94,10 +94,12 @@
     box-shadow: 2px 2px 2px black;
     border-radius: 5px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .join-meetup-btn{
     padding-top: 30px;
+
 }
 
 .card{

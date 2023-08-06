@@ -8,9 +8,7 @@ export default function DeleteEventModal({eventId,groupId}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
-    // const groups = useSelector(state=>state.groups)
-    // const groupsArr = Object.values(groups)
-    // const filterArr = groupsArr.filter((group)=>group.id===event)
+
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(eventData.deleteEventThunk(Number(eventId)))

@@ -43,7 +43,7 @@ export default function EventsList({ events, groupId }) {
                 {futureEvents.map((futureEvent) => {
                     { console.log(futureEvent.previewImage) }
                     return (
-                        <NavLink to={`/events/${futureEvent.id}`}>
+                        <NavLink key={futureEvent.id} to={`/events/${futureEvent.id}`}>
                             <div className="mini-event">
                                 <div className="mini-event-img">
                                     <img id='event-lists-images' src={futureEvent.previewImage} alt='test'></img>
@@ -75,7 +75,7 @@ export default function EventsList({ events, groupId }) {
                 {pastEvents.map((pastEvent) => {
                     { console.log(pastEvent.previewImage) }
                     return (
-                        <NavLink to={`/events/${pastEvent.id}`}>
+                        <NavLink key={pastEvent.id} to={`/events/${pastEvent.id}`}>
                             <div className="mini-event">
                                 <div className="mini-event-img">
                                     <img id='event-lists-images' src={pastEvent.previewImage} alt='test'></img>

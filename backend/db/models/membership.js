@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     groupId: {
       allowNull:false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      onDelete:"CASCADE",
     },
     status: {
       allowNull:false,
