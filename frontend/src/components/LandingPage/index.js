@@ -68,7 +68,7 @@ export default function LandingPage() {
                             <div>
                                 <img alt='landing-create' src='/images/createGroup.svg'></img>
                             </div>
-                            <div id='link-text'>
+                            <div id={user? 'link-text': 'link-text-login'}>
                                 Start a new Group
                             </div>
                         </NavLink>
