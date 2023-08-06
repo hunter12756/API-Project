@@ -15,7 +15,7 @@ export default function Events() {
     useEffect(() => {
         dispatch(eventData.getAllEventsThunk())
     }, [dispatch])
-    if(!events) return;
+    // if(!events) return;
 
     return (
         <>

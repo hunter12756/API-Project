@@ -29,8 +29,8 @@ module.exports = {
         type: "Online",
         capacity: 30,
         price: 15,
-        startDate: ("2023-06-30 06:00:00"),
-        endDate: ("2023-06-31 07:00:00")
+        startDate: ("2023-06-03 06:00:00"),
+        endDate:   ("2023-06-06 07:00:00")
       },
       {
         venueId: 3,
