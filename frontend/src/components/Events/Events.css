@@ -79,3 +79,10 @@
     font-size: 30px;
     color:teal;
 }
+#time{
+    color:teal;
+}
+#location{
+    color:grey;
+    font-size: 14px;
+}

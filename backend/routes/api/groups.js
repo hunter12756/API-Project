@@ -54,6 +54,9 @@ router.get('/', async (req, res) => {
             group.dataValues.previewImage = null;
         }
         group.dataValues.numMembers = membersCount;
+        //numEvent injection
+        const numEvents = await group.countEvents();
+        group.dataValues.numEvents =numEvents;
     }
     return res.json({ "Groups": groups })
 });

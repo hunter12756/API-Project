@@ -21,7 +21,8 @@ export default function EventDetail() {
     const comingSoon = () => {
         alert("Feature coming soon...")
     }
-
+    const startTimeAmerica = event.startDate.split("T")[1].split("Z")[0].slice(".",5)
+    const endTimeAmerica =event.endDate.split("T")[1].split("Z")[0].slice(".",5)
     return (
         <>
             <div className='group-info-page'>
@@ -41,7 +42,6 @@ export default function EventDetail() {
                     </div>
                     <div id='info-container'>
                         <div >
-
                             <NavLink id='group-link-info' to={`/groups/${event.Group.id}`}>
 
                                 <div>
@@ -62,7 +62,22 @@ export default function EventDetail() {
                                 </div>
                             </NavLink>
                         </div>
-
+                        <div className='event-detail-info'>
+                            <div id='time-container'>
+                                <div id='time-detail'>
+                                    {/* Start: {event.startDate.split("T")[0]+ ' · '+ startTimeAmerica} */}
+                                </div>
+                                <div id='time-detail'>
+                                    {/* End: {event.endDate.split("T")[0]+ ' · ' + endTimeAmerica} */}
+                                </div>
+                            </div>
+                            <div id='price-container'>
+                                Price: {event.price<=0 ? 'FREE' : event.price}
+                            </div>
+                            <div id='location-container'>
+                                Location: {event.Group.city +', '+ event.Group.state}
+                            </div>
+                        </div>
                         <div id='authorized-btn' hidden={!currentUser || currentUser.id !== event.Group.id}>
                             {console.log(event)}
                             <OpenModalButton

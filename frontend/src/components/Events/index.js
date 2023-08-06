@@ -17,6 +17,7 @@ export default function Events() {
     useEffect(() => {
         dispatch(eventData.getAllEventsThunk())
     }, [dispatch])
+
     return (
         <>
             <div className='groups-page'>
@@ -33,42 +34,32 @@ export default function Events() {
                 <div className='groups-container'>
                     <div className='all-groups'>
                         {eventsArr.map(event => {
-
+                            const timeInAMERICA = event.startDate.split("T")[1].split("Z")[0].slice(".",5)
+                            
                             return (
                                 <NavLink id="middle-links" key={event.id} to={`events/${event.id}`}>
-                                    {console.log(event.Events)}
-
-
                                     <div className='one-group'>
                                         <div className='img-container'>
                                             <img id='img' src={event.previewImage}></img>
                                         </div>
                                         <div className='group-info'>
+                                        <div id='time'>
+                                            {console.log(event)}
+                                                {event.startDate && (
+                                                    "Event Date: " + event.startDate.split("T")[0] + ' · ' +timeInAMERICA )}
+                                                    {/* + ' End: ' + event.endDate.split("T")[0])} */}
+                                            </div>
                                             <div id="name">
                                                 <h1>{event.name}</h1>
                                             </div>
                                             {/* Broken on render */}
-                                            {/* <div id='location'>
-                                                <p>{event.Group.city + ', ' + event.Group.state}</p>
-                                            </div> */}
+                                            <div id='location'>
+                                                <p>Location: {event.Group.city + ', ' + event.Group.state}</p>
+                                            </div>
                                             <div id='about'>
                                                 {event.description}
                                             </div>
-                                            <div id='time'>
-                                                {event.startDate && (
-                                                    "Start: " + event.startDate.split("T")[0] + ' End: ' + event.endDate.split("T")[0])}
-                                            </div>
-                                            {event.private ?
-                                                <div id="numEvents">
-                                                    {event.Events} Events · Private
-                                                </div>
-                                                :
-                                                <div id="numEvents">
-                                                    {event.Events}· Public
-                                                </div>
-                                            }
                                         </div>
-
                                     </div>
                                 </NavLink>
                             );

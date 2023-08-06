@@ -53,11 +53,11 @@ export default function Groups() {
                                             </div>
                                             {group.private ?
                                                 <div id="numMembers-group">
-                                                   {group.numMembers} Members · Private
+                                                   {group.numEvents} Events · Private
                                                 </div>
                                                 :
                                                 <div id="numMembers-group">
-                                                    {group.numMembers} Members · Public
+                                                    {group.numEvents} Events · Public
                                                 </div>
                                             }
                                         </div>
