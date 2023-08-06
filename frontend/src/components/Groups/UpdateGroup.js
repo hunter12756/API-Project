@@ -75,13 +75,15 @@ export default function UpdateGroup() {
     }, [city, state, name, about, type, privacy])
     if(!user){
         return (
-            <h1 className='error-404'>You must be logged in to use this feature</h1>
+            alert("You must be logged in to use this feature"),
+            history.push('/no-login-data')
         )
     } else {
         if(!Object.values(group).length) {
             return (
-                <h1 className='error-404'> You must be the owner of this Group to access this form</h1>
-            )
+                alert("You must be the owner of the Group to update it"),
+                history.push('/forbidden')
+        )
         }
     }
     return (

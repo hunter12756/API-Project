@@ -1,0 +1,13 @@
+.safety-btn>button{
+    width:300px;
+    height:150px;
+    color:white;
+    background-color: #FF5A5F;
+    border-radius: 10px;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+.safety-btn{
+    margin-top: 60px;
+}

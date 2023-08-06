@@ -83,7 +83,8 @@ export default function GroupForm() {
 
     if(!user){
         return(
-            <h1 className='404'>You must be logged in to create a Group</h1>
+            alert("You must be logged in to create a Group"),
+            history.push('/no-login-data')
         )
     }
     return (

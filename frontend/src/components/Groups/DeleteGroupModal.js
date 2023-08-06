@@ -16,12 +16,14 @@ export default function DeleteGroupModal() {
     }
     return (
         <>
-            <div>
+            <div className='modal-container'>
                 <h1>Confirm Delete</h1>
                 <span>Are you sure you want to remove this group?</span>
-                <div>
-                    <button onClick={handleDelete}>Yes</button>
-                    <button onClick={closeModal}>No</button>
+                <div className='delete-container'>
+                    <button id='delete-btn'onClick={handleDelete}>Yes</button>
+                </div>
+                <div className='delete-container'>
+                    <button id='delete-btn-no'onClick={closeModal}>No</button>
                 </div>
             </div>
         </>

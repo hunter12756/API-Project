@@ -1,0 +1,36 @@
+#modal-content {
+    width:450px;
+    max-width: 700px;
+    border-radius: 10px;
+    border:20px solid white;
+    padding:20px;
+}
+#delete-btn{
+    width:200px;
+    height:30px;
+    background-color: #FF5A5F;
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+    color:white;
+    cursor: pointer;
+}
+#delete-btn-no{
+    width:200px;
+    height:30px;
+    background-color: grey;
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+    color:white;
+    cursor: pointer;
+}
+.modal-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-container{
+    margin-top: 10px;
+}

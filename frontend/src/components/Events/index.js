@@ -39,7 +39,7 @@ export default function Events() {
                                 <NavLink id="middle-links" key={event.id} to={`events/${event.id}`}>
                                     <div className='one-group'>
                                         <div className='img-container'>
-                                            <img id='img' src={event.previewImage}></img>
+                                            <img id='img' src={event && event.previewImage}></img>
                                         </div>
                                         <div className='group-info'>
                                         <div id='time'>
@@ -49,14 +49,14 @@ export default function Events() {
                                                     {/* + ' End: ' + event.endDate.split("T")[0])} */}
                                             </div>
                                             <div id="name">
-                                                <h1>{event.name}</h1>
+                                                <h1>{event && event.name}</h1>
                                             </div>
                                             {/* Broken on render */}
                                             <div id='location'>
-                                                <p>Location: {event.Group.city + ', ' + event.Group.state}</p>
+                                                <p>Location: {event.Group && event.Group.city + ', ' + event.Group && event.Group.state}</p>
                                             </div>
                                             <div id='about'>
-                                                {event.description}
+                                                {event && event.description}
                                             </div>
                                         </div>
                                     </div>

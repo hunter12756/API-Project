@@ -58,6 +58,8 @@
     color:white;
     height:30px;
     width:100px;
+    cursor: pointer;
+    margin-right: 10px;
 }
 #about-detail{
     padding-top:20px;

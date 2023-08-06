@@ -107,7 +107,8 @@ export default function EventForm() {
 
     if (!user) {
         return (
-            <h1 className='error-404'>You must be logged in to access this</h1>
+            alert('You must be logged in to access this'),
+            history.push('/no-login-data')
         )
     } else {
         if (!Object.values(group).length) {
