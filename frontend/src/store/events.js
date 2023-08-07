@@ -57,7 +57,7 @@ export const deleteEventThunk = (eventId) => async (dispatch) => {
         dispatch(deleteEvent(eventId));
         return data;
     } else {
-        return console.log(data.errors)
+        return (data.errors)
     }
 }
 
@@ -85,7 +85,7 @@ export const createEventThunk = (event,groupId, url) => async (dispatch) => {
         return data;
     } else {
         const data = await res.json();
-        return console.log(data.errors)
+        return (data.errors)
     }
 }
 //get All events
@@ -93,10 +93,10 @@ export const getAllEventsThunk = () => async (dispatch) => {
     const res = await csrfFetch(`/api/events`)
     if (!res.ok) {
         const data = await res.json();
-        return console.log(data.errors);
+        return (data.errors);
     }
     const data = await res.json();
-    console.log(data)
+
     let normalizedEvents = {};
     for (let event of data.Events) {
         normalizedEvents[event.id] = event;
@@ -113,7 +113,7 @@ export const getOneEventThunk = (eventId) => async (dispatch) => {
         return event;
     } else {
         const data = await res.json();
-        return console.log(data.errors)
+        return (data.errors)
     }
 }
 // !! REDUCER
@@ -123,20 +123,22 @@ const eventReducer = (state = initialState, action)=>{
     switch(action.type){
         case GET_ALL_EVENTS:
             newState={...state, allEvents: action.events}
-            console.log("ALL EVENTS:", newState)
+
             return newState
         case GET_ONE_EVENT:
             newState={...state, singleEvent: action.event }
-            console.log("CURRENT EVENT: ", newState)
+
             return newState;
         case CREATE_EVENT:
             newState = { ...state, allEvents: {...state.allEvents, [action.event.id]: action.event} }
-            console.log("NEW EVENT: ", newState)
+
             return newState;
         case DELETE_EVENT:
-            newState={...state}
-            delete newState[action.eventId]
-            console.log("WHATEVER EVENT DELETED SHOULD NOT SHOW UP IN THIS: ", newState)
+            const stuffDelete= {...state.allEvents}
+            delete stuffDelete[action.eventId]
+            newState = {
+                ...state,
+                allEvents: stuffDelete}
             return newState;
         default:
             return state;

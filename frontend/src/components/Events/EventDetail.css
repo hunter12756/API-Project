@@ -2,6 +2,7 @@
     height:60px;
     width: 60px;
 }
+
 #group-link-info{
     display: flex;
     flex-direction: row;
@@ -13,17 +14,7 @@
     color:grey;
     display: flex;
     flex-direction: row;
-
 }
-
-#group-link-bg{
-    background-color: lightgray;
-}
-#group-link-info{
-    margin-bottom: 20px;
-}
-
-
 #time-detail{
     padding-left: 20px;
     display: flex;
@@ -45,4 +36,17 @@
 #clock-icon{
     padding-right:20px;
     margin-top:10px;
+}
+
+.group-transfer{
+    margin-left: 10px;
+}
+
+.group-link-container:hover{
+    background-color: lightgoldenrodyellow;
+}
+.group-link-container{
+    border:2px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }

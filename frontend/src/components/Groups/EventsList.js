@@ -11,7 +11,7 @@ export default function EventsList({ events, groupId }) {
     useEffect(() => {
         const eventsArr = Object.values(events)
         const filterEvents = eventsArr.filter((events) => events.groupId === Number(groupId))
-        console.log("CURRENT GROUP EVENTS:", filterEvents)
+
         let fEvents = [];
         let pEvents = [];
         for (let event of filterEvents) {
@@ -26,42 +26,62 @@ export default function EventsList({ events, groupId }) {
     }, [events])
 
     futureEvents.sort((a, b) => {
-        return new Date(a.startDate) - new Date(b.startDate)
-    })
+        const dateA = new Date(a.startDate);
+        const dateB = new Date(b.startDate);
+
+        if (dateA > new Date() && dateB > new Date()) {
+            return dateA - dateB; // Both upcoming, sort by date
+        } else if (dateA <= new Date() && dateB <= new Date()) {
+            return dateA - dateB; // Both past, sort by date
+        } else if (dateA <= new Date()) {
+            return 1; // a is past, b is upcoming
+        } else {
+            return -1; // a is upcoming, b is past
+        }
+    });
     pastEvents.sort((a, b) => {
-        return new Date(a.startDate) - new Date(b.startDate)
-    })
+        const dateA = new Date(a.startDate);
+        const dateB = new Date(b.startDate);
 
-    console.log("Future events: ", futureEvents)
-    console.log("Past Events: ", pastEvents)
-
+        if (dateA > new Date() && dateB > new Date()) {
+            return dateA - dateB; // Both upcoming, sort by date
+        } else if (dateA <= new Date() && dateB <= new Date()) {
+            return dateA - dateB; // Both past, sort by date
+        } else if (dateA <= new Date()) {
+            return 1; // a is past, b is upcoming
+        } else {
+            return -1; // a is upcoming, b is past
+        }
+    });
     return (
         <>
             {/* Upcoming events */}
             <div className="future-events">
                 <h2>{futureEvents.length > 0 ? `Upcoming Events (${futureEvents.length})` : ''}</h2>
                 {futureEvents.map((futureEvent) => {
-                    { console.log(futureEvent.previewImage) }
                     return (
                         <NavLink key={futureEvent.id} to={`/events/${futureEvent.id}`}>
                             <div className="mini-event">
                                 <div className="mini-event-img">
                                     <img id='event-lists-images' src={futureEvent.previewImage} alt='test'></img>
+
                                 </div>
+
                                 <div className="mini-event-info">
                                     <div className="mini-event-time">
-                                        {futureEvent.startDate.split("T")[0] + ' · ' +'<'+futureEvent.startDate.split("T")[1].split("Z")[0].slice(".",5)+'>'}
+                                        {futureEvent.startDate.split("T")[0] + ' · ' + '<' + futureEvent.startDate.split("T")[1].split("Z")[0].slice(".", 5) + '>'}
                                     </div>
                                     <div className="mini-event-name">
                                         {futureEvent.name}
                                     </div>
                                     <div className="mini-event-location">
-                                        {futureEvent.Group.city+', '+futureEvent.Group.state}
+                                        {futureEvent.Group.city + ', ' + futureEvent.Group.state}
                                     </div>
                                 </div>
                                 <div className="mini-event-about">
                                         {futureEvent.description}
-                                </div>
+                                    </div>
+
                             </div>
 
                         </NavLink>
@@ -73,7 +93,7 @@ export default function EventsList({ events, groupId }) {
             <div className="past-events">
                 <h2> {pastEvents.length > 0 ? `Past Events (${pastEvents.length})` : ''}</h2>
                 {pastEvents.map((pastEvent) => {
-                    { console.log(pastEvent.previewImage) }
+
                     return (
                         <NavLink key={pastEvent.id} to={`/events/${pastEvent.id}`}>
                             <div className="mini-event">
@@ -82,17 +102,17 @@ export default function EventsList({ events, groupId }) {
                                 </div>
                                 <div className="mini-event-info">
                                     <div className="mini-event-time">
-                                        {pastEvent.startDate.split("T")[0] + ' · ' +'<'+pastEvent.startDate.split("T")[1].split("Z")[0].slice(".",5)+'>'}
+                                        {pastEvent.startDate.split("T")[0] + ' · ' + '<' + pastEvent.startDate.split("T")[1].split("Z")[0].slice(".", 5) + '>'}
                                     </div>
                                     <div className="mini-event-name">
                                         {pastEvent.name}
                                     </div>
                                     <div className="mini-event-location">
-                                        {pastEvent.Group.city+', '+pastEvent.Group.state}
+                                        {pastEvent.Group.city + ', ' + pastEvent.Group.state}
                                     </div>
                                 </div>
                                 <div className="mini-event-about">
-                                        {pastEvent.description}
+                                    {pastEvent.description}
                                 </div>
                             </div>
 

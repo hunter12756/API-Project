@@ -577,7 +577,7 @@ router.post('/:groupId/events', requireAuth, async (req, res, next) => {
     }
 
     if (member.status !== 'co-host' && group.organizerId !== user.id) {
-        console.log(member.status)
+
         res.status(403)
         return res.json({ message: "Forbidden" })
     }
@@ -621,7 +621,7 @@ router.get('/:groupId/members', async (req, res) => {
             model: User
         }
     });
-    //console.log(members)
+    
     res.json({Members:members})
 
 })

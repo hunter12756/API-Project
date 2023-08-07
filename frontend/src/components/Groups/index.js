@@ -36,7 +36,7 @@ export default function Groups() {
 
                             return (
                                 <NavLink id="middle-links" key={group.id} to={`groups/${group.id}`}>
-                                    {console.log(group.Groups)}
+                                    
                                     <div className='one-group'>
                                         <div className='img-container'>
                                             <img id='img' alt='preview' src={group.previewImage}></img>

@@ -264,7 +264,7 @@ router.get('/:eventId', async (req, res) => {
         attributes: ['id', 'url', 'preview'],
         raw:true
     });
-    console.log("\nPayload ",payload, '\n')
+
 
     return res.json(payload)
 })
@@ -517,7 +517,7 @@ router.get('/', async (req, res) => {
 
     pagination.limit = size;
     pagination.offset = size * (page - 1);
-    //console.log(where);
+    
 
     const events = await Event.findAll({
         where,

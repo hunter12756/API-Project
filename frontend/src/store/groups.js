@@ -55,7 +55,7 @@ export const deleteGroupThunk = (groupId) => async (dispatch) => {
         dispatch(deleteGroup(groupId));
         return data;
     } else {
-        return console.log(data.errors)
+        return (data.errors)
     }
 }
 
@@ -71,7 +71,7 @@ export const updateGroupThunk = (group, groupId) => async (dispatch) => {
         return updatedGroup;
     } else {
         const data = await res.json();
-        return console.log(data.errors)
+        return (data.errors)
     }
 }
 //create group
@@ -88,18 +88,18 @@ export const createGroupThunk = (group, url) => async (dispatch) => {
             const newRes = await csrfFetch(`/api/groups/${data.id}/images`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({url:url,preview:true})
+                body: JSON.stringify({ url: url, preview: true })
             });
-            if(newRes.ok){
+            if (newRes.ok) {
                 const image = await newRes.json();
-                data.GroupImages =[image]
+                data.GroupImages = [image]
             }
         }
         dispatch(createGroup(data));
         return data;
     } else {
         const data = await res.json();
-        return console.log(data.errors)
+        return (data.errors)
     }
 }
 //get All groups
@@ -109,10 +109,10 @@ export const getAllGroupsThunk = () => async (dispatch) => {
 
         if (!res.ok) {
             const data = await res.json();
-            return console.log(data.errors);
+            return (data.errors);
         }
         const data = await res.json();
-        console.log(data)
+
         let normalizedGroups = {};
         for (let group of data.Groups) {
             normalizedGroups[group.id] = group;
@@ -132,7 +132,7 @@ export const getOneGroupThunk = (groupId) => async (dispatch) => {
         return dispatch(getOneGroup(group));
     } else {
         const data = await res.json();
-        return console.log(data.errors)
+        return (data.errors)
     }
 }
 // !! REDUCER
@@ -142,24 +142,24 @@ const groupReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_GROUPS:
             newState = { ...state, allGroups: action.groups }
-            console.log("ALL GROUPS:", newState)
+
             return newState
         case GET_ONE_GROUP:
             newState = { ...state, singleGroup: action.group }
-            console.log("CURRENT GROUP: ", newState)
+
             return newState;
         case CREATE_GROUP:
-            newState = { ...state, allGroups: {...state.allGroups, [action.group.id]: action.group} }
-            console.log("NEW GROUP:", newState)
+            newState = { ...state, allGroups: { ...state.allGroups, [action.group.id]: action.group } }
+
             return newState;
         case UPDATE_GROUP:
-            newState = { ...state, allGroups: {...state.allGroups, [action.group.id]: action.group} }
-            console.log("UPDATED GROUP", newState)
+            newState = { ...state, allGroups: { ...state.allGroups, [action.group.id]: action.group } }
+
             return newState;
         case DELETE_GROUP:
             newState = { ...state }
             newState.allGroups.singleGroup = {};
-            console.log("WHATEVER GROUP DELETE SHOULD NOT SHOW UP IN THIS: ", newState)
+
             return newState;
         default:
             return state;

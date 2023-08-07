@@ -12,17 +12,12 @@ export default function EventDetail() {
     let history = useHistory();
     const currentUser = useSelector(state => state.session.user)
     let event = useSelector(state => state.event.singleEvent);
-    console.log(event)
+
     useEffect(() => {
         dispatch(eventData.getOneEventThunk(eventId))
     }, [dispatch, eventId])
 
     if (!event.id) return null;
-    const comingSoon = () => {
-        alert("Feature coming soon...")
-    }
-
-
     return (
         <>
             <div className='group-info-page'>
@@ -38,25 +33,22 @@ export default function EventDetail() {
                 <div className='top-info'>
                     <div id='img-container'>
                         <img className='img' alt='preview' src={event.EventImages[0].url}></img>
-                        {console.log(event.EventImages[0].url)}
+
                     </div>
                     <div id='info-container'>
-                        <div >
+                        <div className='group-link-container'>
                             <NavLink id='group-link-info' to={`/groups/${event.Group.id}`}>
 
                                 <div id='group-link-bg'>
 
                                     <img id='tiny-img' src={event.GroupImages[0].url}></img>
                                 </div>
-                                <div>
+                                <div className='group-transfer'>
                                     <div>
                                         {event.Group.name}
                                     </div>
-                                    <div id='ocation-detail'>
-                                        {event.Group.state + ", " + event.Group.city}
-                                    </div>
-                                    <div id='umMembers-detail'>
-                                        {event.Group.private ? <div>· Private</div> : <div> · Public</div>}
+                                    <div id='numMembers-detail'>
+                                        {event.Group.private ? <div> Private</div> : <div>  Public</div>}
                                     </div>
 
                                 </div>
@@ -67,7 +59,7 @@ export default function EventDetail() {
                             <div id='time-container'>
                                 <div id='clock-icon'>
 
-                                    <i class="fa-regular fa-clock"></i>
+                                    <i className="fa-regular fa-clock"></i>
                                 </div>
                                 <div >
                                     <div>
@@ -87,17 +79,18 @@ export default function EventDetail() {
                                 </div>
                             </div>
                             <div id='price-container'>
-                                <i class="fa-solid fa-dollar-sign"></i> Price: {event.price <= 0 ? 'FREE' : '$' + event.price}
+                                <i className="fa-solid fa-dollar-sign"></i> Price: {event.price <= 0 ? 'FREE' : '$' + event.price}
                             </div>
                             <div id='location-container'>
-                                <i class="fa-solid fa-map-pin"></i>  Type: {event.type}
+                                <i className="fa-solid fa-map-pin"></i>  Type: {event.type}
                             </div>
                         </div>
-                        <div id='authorized-btn' hidden={!currentUser || currentUser.id !== event.Group.id}>
-                            {console.log(event)}
+
+                        <div id='authorized-btn' hidden={!currentUser || currentUser.id !== event.Organizer.id}>
+
                             <OpenModalButton
                                 id='link-btns'
-                                modalComponent={<DeleteEventModal eventId={eventId} groupId={event.Group.id} />}
+                                modalComponent={<DeleteEventModal groupId={event.Group.id} />}
                                 buttonText='Delete' />
                         </div>
                     </div>

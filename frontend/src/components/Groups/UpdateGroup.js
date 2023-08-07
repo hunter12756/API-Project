@@ -9,38 +9,34 @@ export default function UpdateGroup() {
     const dispatch = useDispatch();
     let {groupId} = useParams();
     //setters
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [name, setName] = useState("");
-    const [about, setAbout] = useState("");
-    const [type, setType] = useState(undefined);
-    const [privacy, setPrivacy] = useState(undefined);
     const [validationErrors, setValidationErrors] = useState({});
     const user = useSelector(state => state.session.user)
     let group = useSelector(state => state.group.singleGroup);
+    const [city, setCity] = useState(group.city);
+    const [state, setState] = useState(group.state);
+    const [name, setName] = useState(group.name);
+    const [about, setAbout] = useState(group.about);
+    const [type, setType] = useState(group.type);
+    const [privacy, setPrivacy] = useState(group.private);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (Object.values(validationErrors).length) {
-
-        }
-
         const newGroup = {
             city,
             state,
             name,
             about,
             type,
-            private:privacy==='true'
+            private:privacy
         }
-        console.log(newGroup)
+
         dispatch(groupData.updateGroupThunk(newGroup,groupId))
             .then((data) => {
                 //this is pushing to /groups/groups/theId
                 history.push(`/groups/${data.id}`);
             })
             .catch((e) => {
-                console.log("Error making group: ", e)
+                console.error("Error making group: ", e)
             })
 
         setCity("");
@@ -68,7 +64,7 @@ export default function UpdateGroup() {
         if (!type) {
             errors.type = "Group Type is required"
         }
-        if (!privacy) {
+        if (privacy !== false  && privacy !==true) {
             errors.privacy = "Visibility Type is required"
         }
         setValidationErrors(errors)
@@ -96,11 +92,10 @@ export default function UpdateGroup() {
                     <label>Meetup groups meet locally, in person, and online. We'll connect you with people in your area, and more can join you online</label>
                     {/* CITY */}
                     <div id='input'>
-
                         <input
                             type='text'
                             id='city'
-                            defaultValue={group.city}
+                            value={city}
                             onChange={(e) => setCity(e.target.value)}
                             placeholder='city'
                         />
@@ -114,7 +109,7 @@ export default function UpdateGroup() {
                         <input
                             type='text'
                             id='state'
-                            defaultValue={group.state}
+                           value={state}
                             onChange={(e) => setState(e.target.value)}
                             placeholder='state'
                         />
@@ -131,7 +126,7 @@ export default function UpdateGroup() {
                         <input
                             type='text'
                             id='name'
-                            defaultValue={group.name}
+                            value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder='What is your group name?'
                         />
@@ -152,7 +147,7 @@ export default function UpdateGroup() {
 
                     <textarea
                         id='about'
-                        defaultValue={group.about}
+                        value={about}
                         onChange={(e) => setAbout(e.target.value)}
                         placeholder="Please write atleast 30 characters"
                     >
@@ -172,7 +167,7 @@ export default function UpdateGroup() {
 
                         <select
                             className='select-form'
-                            defaultValue={group.type}
+                            value={type}
                             onChange={(e) => setType(e.target.value)}
                         >
                             <option value={undefined}>Select one</option>
@@ -192,7 +187,7 @@ export default function UpdateGroup() {
 
                         <select
                             className='select-form'
-                            defaultValue={group.private}
+                            value={privacy}
                             onChange={(e) => setPrivacy(e.target.value)}
                         >
                             <option value={undefined}>Select one</option>

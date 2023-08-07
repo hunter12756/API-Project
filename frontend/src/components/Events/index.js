@@ -12,6 +12,21 @@ export default function Events() {
     //load up da data
     let events = useSelector(state => state.event.allEvents);
     let eventsArr = Object.values(events)
+    eventsArr.sort((a, b) => {
+        const dateA = new Date(a.startDate);
+        const dateB = new Date(b.startDate);
+
+        if (dateA > new Date() && dateB > new Date()) {
+            return dateA - dateB; // Both upcoming, sort by date
+        } else if (dateA <= new Date() && dateB <= new Date()) {
+            return dateA - dateB; // Both past, sort by date
+        } else if (dateA <= new Date()) {
+            return 1; // a is past, b is upcoming
+        } else {
+            return -1; // a is upcoming, b is past
+        }
+    });
+
     useEffect(() => {
         dispatch(eventData.getAllEventsThunk())
     }, [dispatch])
@@ -42,7 +57,7 @@ export default function Events() {
                                         </div>
                                         <div className='group-info'>
                                         <div id='time'>
-                                            {console.log(event)}
+                                            
                                                 {event.startDate && (
                                                     event.startDate.split("T")[0] + ' · ' +'<'+event.startDate.split("T")[1].split("Z")[0].slice(".",5)+'>' )}
                                             </div>

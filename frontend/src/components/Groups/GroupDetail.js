@@ -15,10 +15,9 @@ export default function GroupDetail() {
     let group = useSelector(state => state.group.singleGroup);
     let events = useSelector(state=> state.event.allEvents)
 
-    console.log(group)
+
     useEffect(() => {
         dispatch(groupData.getOneGroupThunk(groupId)).then(dispatch(eventData.getAllEventsThunk()))
-
     }, [dispatch, groupId])
 
     if (!group.id) return null;
@@ -35,7 +34,7 @@ export default function GroupDetail() {
                 <div className='top-info'>
                     <div id='img-container'>
                         <img className='img' alt='preview' src={group.GroupImages[0].url}></img>
-                        {console.log(group.GroupImages[0].url)}
+
                     </div>
                     <div id='info-container'>
                         <div id='name-detail'>
@@ -45,7 +44,7 @@ export default function GroupDetail() {
                             {group.state}
                         </div>
                         <div id='numMembers-detail'>
-                            {console.log("group:info",group)}
+
                             {group.private ? <div>{group.numEvents} Events · Private</div> : <div>{group.numEvents} Events · Public</div>}
                         </div>
                         <div id='organizer-detail'>

@@ -11,8 +11,10 @@ export default function DeleteGroupModal() {
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(groupData.deleteGroupThunk(group.id))
-        closeModal();
-        history.push('/groups')
+        .then(()=>{
+            closeModal();
+            history.push('/groups')
+        })
     }
     return (
         <>

@@ -4,16 +4,19 @@ import { useModal } from "../../context/Modal";
 import * as eventData from '../../store/events'
 import './DeleteEvent.css'
 import { useEffect, useState } from 'react';
-export default function DeleteEventModal({eventId,groupId}) {
+export default function DeleteEventModal({groupId}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
-
+    const event = useSelector(state=>state.event.singleEvent)
     const handleDelete = (e) => {
         e.preventDefault();
-        dispatch(eventData.deleteEventThunk(Number(eventId)))
-        closeModal();
-        history.push(`/groups/${groupId}`)
+        dispatch(eventData.deleteEventThunk((event.id)))
+        .then(()=>{
+
+            closeModal();
+            history.push(`/groups/${groupId}`)
+        })
     }
 
     return (

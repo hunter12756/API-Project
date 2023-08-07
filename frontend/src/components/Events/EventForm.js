@@ -11,7 +11,7 @@ export default function EventForm() {
     let group = useSelector(state => state.group.singleGroup);
     const user = useSelector(state => state.session.user)
     const ref = useRef(true);
-    // console.log(group)
+
     //setters
     const [type, setType] = useState(undefined);
     const [eventName, setEventName] = useState("");
@@ -37,12 +37,11 @@ export default function EventForm() {
         }
         dispatch(eventData.createEventThunk(newEvent, groupId, url))
             .then((data) => {
-                console.log("eventstuff:" + data)
                 //this is pushing to /groups/groups/theId
                 history.push(`/events/${data.id}`);
             })
             .catch((e) => {
-                console.log("Error making event: ", e)
+                console.error("Error making event: ", e)
             })
         setEventName("");
         setDescription("");
