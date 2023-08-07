@@ -8,6 +8,7 @@
 My project is a clone of the popular site Meetup with a twist on it! Meetup is dedicated to helping people create and foster communities
 of people that enjoy similar interests and activities as each other. So I created Game Up which is similar to Meetup, but specifically for Gamers! You can create a group about a certain Genre or specific game and recruit members to join! Host events like tournaments, hangouts, coaching sessions, helping new players, and more!
 
+LIVE SITE: https://hunter-api-project.onrender.com
 
 Technologies Used:
 HTML, JS, NODE.js, Express, sequelize, github, React, Redux, PostgressSQL, SQLite3,
