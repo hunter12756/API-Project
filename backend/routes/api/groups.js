@@ -214,7 +214,7 @@ router.put("/:groupId", requireAuth, async (req, res) => {
     }
     const errors = {};
     if (name.length > 60) errors.name = "Name must be 60 characters or less";
-    if (about.length < 50) errors.about = "About must be 50 characters or more";
+    if (about.length < 30) errors.about = "About must be 30 characters or more";
     if (type !== "Online" && type !== "In person") errors.type = "Type must be 'Online' or 'In person";
     if (private !== true && private !== false) errors.private = "Private must be a boolean";
     if (!city) errors.city = "City is required";
@@ -621,7 +621,7 @@ router.get('/:groupId/members', async (req, res) => {
             model: User
         }
     });
-    
+
     res.json({Members:members})
 
 })

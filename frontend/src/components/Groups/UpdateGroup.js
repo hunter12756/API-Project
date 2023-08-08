@@ -188,7 +188,7 @@ export default function UpdateGroup() {
                         <select
                             className='select-form'
                             value={privacy}
-                            onChange={(e) => setPrivacy(e.target.value)}
+                            onChange={(e) => setPrivacy(e.target.value==='true')}
                         >
                             <option value={undefined}>Select one</option>
                             <option value={true}>Private</option>
